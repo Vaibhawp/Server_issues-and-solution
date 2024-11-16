@@ -1,0 +1,12 @@
+
+
+1. Agar kisi class ko inherit kiya hai kisi mein, to uska object banane ki zarurat nahi hai.
+2. Har method jo class ke andar banta hai, usmein `self` likhna zaruri hai.
+3. Object class ka banta hai, jaise `obj = classname()`, aur humesha method call karte hain, jaise `obj.method()`.
+4. Class aur method banate waqt `self` ka use karte hain.
+5. Inheritance mein ek class ko dusre class ko pass kiya ja sakta hai. Hum ya to saari classes ko ek class mein daal sakte hain, ya ek ke andar ek aur uske aage wale ko.
+6. Kisi argument ko method ke andar print karne ke liye: `self.argument = value/argument`. Ab aap `obj.method(value of argument)` call kar sakte hain. (See example `oops_3.py`.)
+7. Private variables `__variable` se bante hain aur inhe seedha object se access nahi kiya ja sakta. Isliye hum hamesha constructor ya methods mein setter aur getter ka use karte hain.
+8. Polymorphism mein function wahi hota hai, lekin arguments alag hote hain.
+9. Method overloading ek function hai jo alag-alag values ke liye baar-baar call hota hai (See `oops_4.py`). Method overriding mein do methods hote hain jinke same parameters hote hain. Agar class A ko class B mein inherit kiya gaya hai, to yahan overriding hota hai taaki memory bache (See `oops_5.py`).
+

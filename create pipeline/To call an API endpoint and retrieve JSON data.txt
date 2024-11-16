@@ -1,0 +1,48 @@
+To call an API endpoint and retrieve JSON data in Python, you can use the `requests` library. Here’s an example code snippet for making a GET request to an API endpoint and handling the JSON response:
+
+```python
+import requests
+
+def get_api_data(api_url, headers=None):
+    try:
+        # Send GET request to the API endpoint
+        response = requests.get(api_url, headers=headers)
+        
+        # Check if the request was successful
+        response.raise_for_status()
+        
+        # Parse JSON response
+        data = response.json()
+        return data
+    
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+    except Exception as err:
+        print(f"An error occurred: {err}")
+
+# Example usage
+api_url = "https://api.example.com/data"  # Replace with your API endpoint
+headers = {
+    "Authorization": "Bearer YOUR_API_TOKEN"  # Optional headers
+}
+
+response_data = get_api_data(api_url, headers)
+print(response_data)
+```
+
+### Explanation:
+
+1. **`get_api_data` function**: Takes the `api_url` and optional `headers`.
+2. **`requests.get(api_url, headers=headers)`**: Sends a GET request to the specified API endpoint.
+3. **`response.raise_for_status()`**: Checks if the request was successful and raises an error for unsuccessful requests.
+4. **`response.json()`**: Parses the JSON response data.
+
+### Notes:
+- Replace `https://api.example.com/data` with your actual API endpoint.
+- Replace `"YOUR_API_TOKEN"` with the actual token if authentication is required.
+
+Make sure to install the `requests` library if it’s not already installed:
+
+```bash
+pip install requests
+```
