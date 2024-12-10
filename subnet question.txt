@@ -1,0 +1,241 @@
+Class A
+----------------
+
+Range: 1.0.0.0 to 126.255.255.255
+Default Subnet Mask: 255.0.0.0
+Purpose: For large networks (e.g., large organizations or ISPs).
+Number of Networks: 128 (2^7, excluding reserved addresses).
+Number of Hosts per Network: 16,777,214 (2^24 - 2).
+First Octet Range: 1–126.
+
+Class B
+-------------
+
+Range: 128.0.0.0 to 191.255.255.255
+Default Subnet Mask: 255.255.0.0
+Purpose: For medium-sized networks (e.g., universities or smaller ISPs).
+Number of Networks: 16,384 (2^14).
+Number of Hosts per Network: 65,534 (2^16 - 2).
+First Octet Range: 128–191.
+
+Class C
+------------
+Range: 192.0.0.0 to 223.255.255.255
+Default Subnet Mask: 255.255.255.0
+Purpose: For small networks (e.g., small businesses or home networks).
+Number of Networks: 2,097,152 (2^21).
+Number of Hosts per Network: 254 (2^8 - 2).
+First Octet Range: 192–223.
+
+Class D (Reserved for Multicasting)
+--------------------------------------------------
+Range: 224.0.0.0 to 239.255.255.255
+Purpose: Used for multicast groups (not for host assignments).
+First Octet Range: 224–239.
+
+Class E (Experimental/Reserved)
+---------------------------------------------
+Range: 240.0.0.0 to 255.255.255.255
+Purpose: Reserved for experimental use; not available for general use.
+First Octet Range: 240–255.
+Reserved Ranges (Special Purpose)
+127.0.0.0 to 127.255.255.255: Reserved for loopback (localhost).
+169.254.0.0 to 169.254.255.255: Used for Automatic Private IP Addressing (APIPA).
+Private IP Address Ranges:
+Class A: 10.0.0.0 to 10.255.255.255
+Class B: 172.16.0.0 to 172.31.255.255
+Class C: 192.168.0.0 to 192.168.255.255
+
+-------------------------------------------------------------------------------------------------------------------------
+TCP/IP Model
+==============
+The TCP/IP model has 4 layers:
+
+Application Layer
+----------------------------
+Combines functionalities of OSI's Application, Presentation, and Session layers.
+Handles communication between applications (e.g., HTTP, FTP).
+Protocols: HTTP, FTP, SMTP, DNS, etc.
+
+Transport Layer
+----------------------
+Ensures reliable data transfer between devices.
+Manages segmentation, error control, and flow control.
+Protocols: TCP (reliable), UDP (unreliable).
+
+Internet Layer
+--------------------------
+Handles logical addressing and routing of data packets.
+Ensures data is sent to the correct destination.
+Protocols: IP (IPv4, IPv6), ICMP, ARP.
+Network Access Layer (also called Link Layer)
+
+Combines OSI's Data Link and Physical layers.
+Deals with physical hardware and data transmission over the network medium.
+Protocols: Ethernet, Wi-Fi, ARP.
+
+OSI Model
+------------------------
+The OSI model has 7 layers:
+
+Application Layer (Layer 7)
+---------------------------------------
+
+Interfaces with the user and applications.
+Provides network services like email, file transfer, and web browsing.
+Examples: HTTP, FTP, SMTP.
+
+Presentation Layer (Layer 6)
+-------------------------------------
+
+Formats and encrypts/decrypts data for the application layer.
+Ensures interoperability between different systems.
+Examples: JPEG, GIF, SSL/TLS.
+
+Session Layer (Layer 5)
+---------------------------------
+
+Manages sessions or connections between applications.
+Responsible for establishing, maintaining, and terminating connections.
+Examples: NetBIOS, RPC.
+
+Transport Layer (Layer 4)
+----------------------------------
+
+Ensures reliable or unreliable delivery of data.
+Breaks data into segments and manages error detection.
+Examples: TCP, UDP.
+
+Network Layer (Layer 3)
+-----------------------------------
+
+Handles logical addressing and routing of packets.
+Ensures data reaches its destination across networks.
+Examples: IP, ICMP, ARP.
+
+Data Link Layer (Layer 2)
+-------------------------------------
+
+Deals with physical addressing (MAC addresses) and error detection.
+Divided into two sublayers:
+Logical Link Control (LLC): Error control and flow control.
+Media Access Control (MAC): Controls access to the physical medium.
+Examples: Ethernet, Wi-Fi.
+
+Physical Layer (Layer 1)
+----------------------------------------
+
+Defines the physical connection between devices.
+Includes cables, switches, and transmission mediums.
+Examples: Voltage levels, hardware specifications, fiber optics.
+
+
+============================================================================================
+1. 
+find the subnet mask?
+find the total no. of n/w can be created 
+find the total no. of IP address on each n/w
+find the total no. of host on each n/w
+
+a.192.168.10.0/26
+ class C:
+=>full subnet mask: 255.255.255.0
+                                   8      8    8     8  [ n/w =24 and host=8]
+Classless Inter-Domain Routing.   [CIDR =26]                 i.e 2 extra taken by host from n/w    n=2
+
+  so the host should have 8 bits generally i.e 2*0,2*1,2*2,2*3,2*4,2*5,2*6,2*7      but two is given by n/w 2*6+2*7=64+128=192
+subnet mask is = 255.255.255.192
+
+=>total number of n/w can be created = (2)pow2=4   ==> n=2 number of bits borrowed
+=>the total no. of IP address on each n/w ==>(2)pow(8-n)==64
+=>total no. of host on each n/w ==>[(2)pow(8-n)] -2 ( 1 for reserve for n/w id and last for brodcast id) ==62 
+                                                                                                                                                                                                         
+b. 192.168.10.0/28
+full subnet mask ==> 255.255.255.0
+here n=4 i.e 2*7+2*6+2*5+2*4=240   [ answer will be always less than 150]
+First IP Address: Network address (e.g., 10.0.0.0).
+Second IP Address: Reserved for the VPC router.
+Third IP Address: Reserved for Amazon DNS services.
+Fourth IP Address: Reserved for future use by AWS.
+Last IP Address: Broadcast address (e.g., 10.0.0.255).
+subnet mask= 255.255.255.254
+total n/w can be created = 2*4=16
+total no. of ip on each n/w =16
+total no.of host= 14 
+
+2.find the 5th subnet of 10.0.0.0/8
+for host 64
+2*n -2 =64  ==>n=6
+so 32-6 ==26
+first ip ==10.0.0.0/26
+second ip==10.0.0.64/26
+third ip ==10.0.0.128/26
+forth ip ==10.0.0.192/26
+fifth ip ==10.0.1.0/26
+
+3.find the 5 th subnet of 
+To find the 5th subnet of 10.10.0.0/20 with 3500 hosts, follow these steps:
+
+1. Determine Subnet Size
+You need enough host bits to accommodate 3500 hosts.
+The formula to find the number of host bits needed is 
+2ℎ−2≥3500
+2 h −2≥3500, where h is the number of host bits.
+2*12=4096
+2 *12=4096 (since 
+2*11=2048
+2 *11 =2048 is not enough).
+12 host bits are required.
+So, the subnet mask will be 
+32−12=20
+32−12=20 bits for the network portion.
+Subnet Mask: /20 (which is 255.255.240.0).
+ Subnet Calculation
+Each subnet with /20 provides 4096 IP addresses (including 2 reserved for network and broadcast).
+The block size for /20 is 4096 IP addresses.
+Find the 5th Subnet
+The starting point is 10.10.0.0. Add 4096 IPs for each subsequent subnet:
+1st Subnet: 10.10.0.0/20
+2nd Subnet: 10.10.16.0/20
+3rd Subnet: 10.10.32.0/20
+4th Subnet: 10.10.48.0/20
+5th Subnet: 10.10.64.0/20
+Answer:
+The 5th subnet is 10.10.64.0/20.
+------------------------------------------------------------------------------
+=>140.10.0.0/16 host=250
+n=8
+140.10.0.0/24
+140.10.1.0/24
+140.10.2.0/24
+140.10.3.0/24
+140.10.4.0/24
+------------------------------------------------------------------
+196.10.0.0/24 host=128
+o find the subnet for 196.10.0.0/24 with 128 hosts, follow these steps:
+
+1. Determine the Subnet Size
+You need enough host bits to accommodate 128 hosts.
+The formula for the number of host bits is 
+2ℎ−2≥128
+2 h −2≥128, where h is the number of host bits.
+2*7=128
+2 *7 =128, so 7 host bits are required.
+The subnet mask will be 
+32−7=25
+32−7=25 bits for the network portion.
+Subnet Mask: /25 (which is 255.255.255.128).
+2. Subnet Calculation
+Each subnet with /25 provides 128 IP addresses (126 usable for hosts).
+The block size for /25 is 128 IP addresses.
+3. Find the Subnets
+The starting IP is 196.10.0.0/24.
+The first subnet will be 196.10.0.0/25.
+Add 128 IPs to the starting point for subsequent subnets.
+Subnet List:
+1st Subnet: 196.10.0.0/25
+2nd Subnet: 196.10.0.128/25
+Since you need 128 hosts, a subnet size of /25 works, as each subnet will have 126 usable IP addresses.
+
+Answer:
+The subnet mask is /25 for each subnet in the 196.10.0.0/24 network to support 128 hosts.
