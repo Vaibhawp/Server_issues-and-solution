@@ -1,0 +1,100 @@
+The error message "Unit codedeploy-agent.service not found" indicates that the CodeDeploy agent service is not recognized, which might be due to an issue with the installation or the service name. Here's how to troubleshoot and resolve this issue:
+
+### 1. **Verify Installation**
+
+Ensure that the CodeDeploy agent was installed correctly. First, check if the agent package is installed:
+
+```bash
+dpkg -l | grep codedeploy-agent
+```
+
+If nothing appears, the agent might not be installed correctly.
+
+### 2. **Reinstall the CodeDeploy Agent**
+
+If the package is missing or not installed correctly, follow these steps to reinstall it:
+
+1. **Remove any existing installation:**
+
+   ```bash
+   sudo apt-get remove codedeploy-agent
+   ```
+
+2. **Download and Install the Correct Package:**
+
+   ```bash
+   wget https://s3.ap-south-1.amazonaws.com/aws-codedeploy-ap-south-1/latest/codedeploy-agent.noarch.rpm
+   ```
+
+   Convert and install it:
+
+   ```bash
+   sudo apt-get install -y alien
+   sudo alien -i codedeploy-agent.noarch.rpm
+   ```
+
+### 3. **Check for the Service File**
+
+After installation, verify that the service file exists:
+
+```bash
+ls /lib/systemd/system/codedeploy-agent.service
+```
+
+If the service file is not present, the installation might have failed or the service name could be incorrect.
+
+### 4. **Start and Enable the CodeDeploy Agent**
+
+Try starting the agent with:
+
+```bash
+sudo systemctl start codedeploy-agent
+```
+
+If the service name is different, you might need to use an alternative command or check the service files:
+
+```bash
+sudo systemctl list-units --type=service | grep codedeploy
+```
+
+This command lists all services and might show the correct name or indicate if it’s installed under a different name.
+
+### 5. **Check for Installation Issues**
+
+Look for installation issues or errors in the logs:
+
+```bash
+sudo tail -f /var/log/dpkg.log
+```
+
+### 6. **Manually Install the Agent**
+
+If the package manager approach doesn’t work, you can try manually installing the CodeDeploy agent:
+
+1. **Download the CodeDeploy agent tarball:**
+
+   ```bash
+   wget https://s3.ap-south-1.amazonaws.com/aws-codedeploy-ap-south-1/latest/codedeploy-agent.tar.gz
+   ```
+
+2. **Extract and Install:**
+
+   ```bash
+   sudo tar -xzf codedeploy-agent.tar.gz -C /opt
+   ```
+
+3. **Start the CodeDeploy agent manually:**
+
+   ```bash
+   sudo /opt/codedeploy-agent/bin/codedeploy-agent start
+   ```
+
+### Summary
+
+1. **Verify installation** with `dpkg -l | grep codedeploy-agent`.
+2. **Reinstall** the CodeDeploy agent if necessary.
+3. **Check the service file** to confirm it exists.
+4. **Start the service** with `systemctl start codedeploy-agent`.
+5. **Check for errors** in logs or adjust the installation method if needed.
+
+These steps should help you diagnose and resolve the issue with starting the CodeDeploy agent on your Ubuntu EC2 instance.

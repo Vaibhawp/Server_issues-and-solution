@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+files:
+  - source: /home/ubuntu/Repo/APP/release/pulse-app/Config/config.txt
+    destination: /
+
+hooks:
+  BeforeInstall:
+    - location: /home/ubuntu/Repo/APP/release/pulse-app/scripts/UnzipResourceBundle.sh
+    - location: /home/ubuntu/Repo/APP/release/pulse-app/scripts/UnzipDataBundle.sh
+  AfterInstall:
+    - location: /home/ubuntu/Repo/APP/release/pulse-app/scripts/RunResourceTests.sh
+      timeout: 180
+  ApplicationStart:
+    - location: /home/ubuntu/Repo/APP/release/pulse-app/scripts/RunFunctionalTests.sh
+      timeout: 3600
+  ValidateService:
+    - location: /home/ubuntu/Repo/APP/release/pulse-app/scripts/MonitorService.sh
+      timeout: 3600
+      runas: codedeployuser

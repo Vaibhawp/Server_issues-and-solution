@@ -1,0 +1,10 @@
+TMUX (Terminal Multiplexer) is a terminal-based tool that allows you to manage multiple terminal sessions within a single window. It is particularly useful for managing long-running processes on remote servers and organizing different tasks without needing multiple terminal windows.
+tmux --->Creates a new TMUX session.
+tmux new -s <session_name>-->Start a named session: [for new session]
+tmux ls -->List TMUX sessions:
+tmux attach -t <session_name_or_id> -->Attach to an existing session:        tmux a -t 0 [for existing session]
+Press Ctrl + b, then d --->Detach from a session:
+tmux kill-session -t <session_name_or_id> -->Kill a TMUX session:
+Press Ctrl + b, then % -->Split a window horizontally:
+Press Ctrl + b, then " -->Split a window vertically:
+ress Ctrl + b, then arrow keys -->Switch between panes:

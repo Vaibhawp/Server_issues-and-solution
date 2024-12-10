@@ -1,0 +1,247 @@
+Here are the requested shell scripts:
+
+### 1. Monitor Network Connectivity and Log Results if Unreachable:
+bash
+#!/bin/bash
+
+SERVER="example.com"  # Change this to your server
+LOG_FILE="/var/log/network_connectivity.log"
+
+ping -c 1 $SERVER &> /dev/null
+if [ $? -ne 0 ]; then
+  echo "$(date) - Server $SERVER is unreachable" >> $LOG_FILE
+fi
+
+
+### 2. Check Free Memory and Alert if Below Threshold:
+bash
+#!/bin/bash
+
+THRESHOLD=10  # 10% free memory
+FREE_MEM=$(free | grep Mem | awk '{print $4/$2 * 100.0}')
+
+if (( $(echo "$FREE_MEM < $THRESHOLD" | bc -l) )); then
+  echo "Alert: Free memory is below $THRESHOLD%" | mail -s "Memory Alert" user@example.com
+fi
+
+
+### 3. Monitor Processes and Restart Them if Not Running:
+bash
+#!/bin/bash
+
+PROCESSES=("process1" "process2")  # List of processes to monitor
+
+for PROC in "${PROCESSES[@]}"; do
+  if ! pgrep -x "$PROC" > /dev/null; then
+    echo "$(date) - $PROC not running. Restarting..."
+    systemctl restart $PROC  # Adjust if needed to restart the process
+  fi
+done
+
+
+### 4. Download Latest Backup from Remote Server and Log Time:
+bash
+#!/bin/bash
+
+REMOTE_SERVER="user@remote-server:/path/to/backup/"
+LOCAL_DIR="/path/to/local/backup/"
+LOG_FILE="/var/log/backup_download.log"
+
+scp $REMOTE_SERVER$(ls -t $REMOTE_SERVER | head -n 1) $LOCAL_DIR
+echo "$(date) - Backup downloaded" >> $LOG_FILE
+
+
+### 5. Automate Creation of New User with Specific Permissions:
+bash
+#!/bin/bash
+
+USERNAME="newuser"
+USER_HOME="/home/$USERNAME"
+USER_PERMISSIONS="sudo"  # Example: 'sudo' permissions
+
+useradd -m -d $USER_HOME -s /bin/bash $USERNAME
+usermod -aG $USER_PERMISSIONS $USERNAME
+echo "$USERNAME has been created with $USER_PERMISSIONS permissions."
+
+
+### 6. Find Large Files and Move Them to Another Directory:
+bash
+#!/bin/bash
+
+SOURCE_DIR="/path/to/source"
+DEST_DIR="/path/to/destination"
+
+find $SOURCE_DIR -type f -size +1G -exec mv {} $DEST_DIR \;
+
+
+### 7. Check Uptime and Log if Less Than 24 Hours:
+bash
+#!/bin/bash
+
+UPTIME=$(awk '{print $1}' /proc/uptime)
+UPTIME_HOURS=$(echo "$UPTIME / 3600" | bc)
+
+if [ $UPTIME_HOURS -lt 24 ]; then
+  echo "$(date) - Server uptime is less than 24 hours" >> /var/log/uptime.log
+fi
+
+
+### 8. Check Disk Space Usage on Multiple Servers Using SSH:
+bash
+#!/bin/bash
+
+SERVERS=("server1" "server2")  # List of servers
+THRESHOLD=80  # Disk usage threshold
+
+for SERVER in "${SERVERS[@]}"; do
+  SSH_OUTPUT=$(ssh $SERVER 'df -h /' | awk 'NR==2 {print $5}' | sed 's/%//')
+  
+  if [ $SSH_OUTPUT -gt $THRESHOLD ]; then
+    echo "Disk usage on $SERVER is above $THRESHOLD%" | mail -s "Disk Space Alert" user@example.com
+  fi
+done
+
+
+### 9. Fetch Logs from Remote Server and Analyze Error Messages:
+bash
+#!/bin/bash
+
+REMOTE_SERVER="user@remote-server:/path/to/logs/*.log"
+LOCAL_DIR="/path/to/local/logs/"
+ERROR_LOG="/var/log/error_logs.txt"
+
+scp $REMOTE_SERVER $LOCAL_DIR
+grep -i "error" $LOCAL_DIR*.log > $ERROR_LOG
+
+
+### 10. Check Web Application Status and Restart if Down:
+bash
+#!/bin/bash
+
+WEB_SERVER="http://your-web-server.com"
+LOG_FILE="/var/log/web_app_status.log"
+
+if ! curl -s --head --request GET $WEB_SERVER | grep "200 OK" > /dev/null; then
+  echo "$(date) - Web application is down. Restarting..." >> $LOG_FILE
+  systemctl restart webapp.service  # Adjust to your web application service
+fi
+
+
+### 11. Count Number of Lines in All `.log` Files in a Directory:
+bash
+#!/bin/bash
+
+DIRECTORY="/path/to/logs"
+TOTAL_LINES=0
+
+for FILE in $DIRECTORY/*.log; do
+  LINES=$(wc -l < $FILE)
+  TOTAL_LINES=$((TOTAL_LINES + LINES))
+done
+
+echo "Total lines in .log files: $TOTAL_LINES"
+
+
+### 12. Compare Two Directories and Display Differences:
+bash
+#!/bin/bash
+
+DIR1="/path/to/dir1"
+DIR2="/path/to/dir2"
+
+diff -qr $DIR1 $DIR2
+
+
+### 13. Remove Old Logs (Older Than 7 Days) from Directory:
+bash
+#!/bin/bash
+
+LOG_DIR="/path/to/logs"
+
+find $LOG_DIR -type f -name "*.log" -mtime +7 -exec rm {} \;
+
+
+### 14. Report All Active Users Logged Into the System:
+bash
+#!/bin/bash
+
+who > /var/log/active_users.log
+
+
+### 15. Monitor Log File Sizes and Alert If Any Exceeds Set Size:
+bash
+#!/bin/bash
+
+LOG_DIR="/path/to/logs"
+SIZE_LIMIT=100  # Size in MB
+
+for FILE in $LOG_DIR/*.log; do
+  FILE_SIZE=$(du -m $FILE | cut -f1)
+  
+  if [ $FILE_SIZE -gt $SIZE_LIMIT ]; then
+    echo "$FILE exceeds $SIZE_LIMIT MB" | mail -s "Log File Size Alert" user@example.com
+  fi
+done
+
+
+### 16. Update All Packages and Reboot If Necessary:
+bash
+#!/bin/bash
+
+sudo apt update && sudo apt upgrade -y
+
+if [ $? -eq 0 ]; then
+  sudo reboot
+fi
+
+
+### 17. Rotate Logs by Compressing Old Log Files:
+bash
+#!/bin/bash
+
+LOG_DIR="/path/to/logs"
+MAX_BACKUPS=5
+
+find $LOG_DIR -name "*.log" -mtime +7 -exec gzip {} \;
+ls $LOG_DIR/*.log.gz | sort | head -n -$MAX_BACKUPS | xargs rm
+
+
+### 18. Validate File Integrity by Checking Checksums:
+bash
+#!/bin/bash
+
+DIR="/path/to/files"
+for FILE in $DIR/*; do
+  if [ -f $FILE ]; then
+    md5sum $FILE > "$FILE.md5"
+  fi
+done
+
+
+### 19. Check for Specific Software and Install If Missing:
+bash
+#!/bin/bash
+
+SOFTWARE=("docker" "git")
+
+for APP in "${SOFTWARE[@]}"; do
+  if ! command -v $APP &> /dev/null; then
+    echo "$APP not found. Installing..."
+    sudo apt install -y $APP
+  fi
+done
+
+
+### 20. Automate SSL Certificate Creation for Web Server:
+bash
+#!/bin/bash
+
+DOMAIN="yourdomain.com"
+CERT_DIR="/etc/ssl/certs"
+KEY_DIR="/etc/ssl/private"
+
+openssl req -newkey rsa:2048 -nodes -keyout $KEY_DIR/$DOMAIN.key -out $CERT_DIR/$DOMAIN.csr
+openssl x509 -req -days 365 -in $CERT_DIR/$DOMAIN.csr -signkey $KEY_DIR/$DOMAIN.key -out $CERT_DIR/$DOMAIN.crt
+
+
+These scripts can be adjusted according to your specific needs and environment. Let me know if you'd like further explanations or modifications for any of them!

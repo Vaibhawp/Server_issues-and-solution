@@ -1,0 +1,94 @@
+#Mention the provider and region in which you want to create the AWS resources in provider.tf file.
+
+provider "aws" {
+    region = "us-east-1"
+}
+
+#Then create a variables file where you have to mention all the variables that is EC2 instance going to use such as ami-id , instance type , server port , ssh port in variables.tf file.
+
+variable "instance_type" {
+    description = "Instance type"
+    type = string
+    default = "t2.micro"
+}
+
+variable "ami_id" {
+    description = "ami image"
+    type = string
+    default = "ami-0102332addane"
+}
+variable "server_port" {
+    description = "for server port"
+    type = number
+    default = 80
+}
+variable "ssh_port" {
+    description = "ssh port"
+    type = number
+    default = "22"
+}
+variable "availability_zone" {
+    description = "Availability zone"
+    default = "us-east-1"
+}
+
+#Then create a file where you can define the security group configurations in security_group.tf file.
+
+resource "aws_security_group" "instance" {
+    name = "terraform-sg"
+    ingress {
+        from_port = var.server_port
+        to_port =var.server_port
+        protocol ="tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol ="-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
+
+#Then create aws instance resource . Here mentions the variables and also in the user data write a script that will install httpd service and index.html on the EC2 instance in main.tf terraform file.
+
+resource "aws_instance" "server" {
+    ami = var.ami_id
+    instance_type = var.instance_type
+    vpc_security_group_ids = [aws_security_group.instance.id]
+    availability_zone = var.availability_zone
+    tags = {
+        Name = "EC2-Server"
+    }
+    user_data = << -EOF 
+                   #!/bin/bash
+                   sudo yum update -y
+                   sudo yum install httpd -y
+                   sudo systemctl start httpd
+                   systemctl enable httpd
+                   echo "Terraform is easy!!!">
+    /var/www/html/index.html
+                  EOF
+        user_data_replace_on_change = true
+}
+
+#Create an EBS volume . Then attach it to the EC2 instance in ebs_volume.tf file.
+
+resource "aws_volume_attachment" "ebs_att" {
+    device_name = "/dev/sdh"
+    volume_id = aws_ebs_volume.ebs_vol.id
+    instance_id = aws_instance.server.id
+}
+
+resource "aws_ebs_volume" "ebs_vol" {
+    availability_zone = var.availability_zone
+    size = 1
+}
+
+#Create a output file which will give the public IP of the EC2 instance as output in output.tf terraform file.
+
+output "public_ip" {
+    description = "The public IP address of the web serever"
+    value = aws_instance.server.public_ip
+}

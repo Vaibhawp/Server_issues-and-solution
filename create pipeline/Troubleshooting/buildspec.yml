@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo Installing dependencies...
+      - cd /home/ubuntu/Repo/APP/release/pulse-app
+      - npm install
+  build:
+    commands:
+      - echo Building the React app...
+      - cd /home/ubuntu/Repo/APP/release/pulse-app
+      - npm run build
+  post_build:
+    commands:
+      - echo Build completed.
+artifacts:
+  files:
+    - "**/*"
+  base-directory: /home/ubuntu/Repo/APP/release/pulse-app/build

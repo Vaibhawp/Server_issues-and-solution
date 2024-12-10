@@ -1,0 +1,1253 @@
+1. Running Python Programs in Different Editors and IDEs
+
+ a) VS Code (Visual Studio Code)
+ b) PyCharm
+ c) Command Prompt/Terminal
+
+ 2. Variables in Python
+
+Variables in Python are symbolic names that reference or "point to" objects in memory. They allow you to store and manipulate data within your program.
+Important Points:
+-Dynamic Typing: You don’t need to declare the type of a variable. The type is inferred based on the assigned value.
+- Variable Assignment: When you assign a value to a variable, Python creates an object and the variable name points to that object in memory.
+
+x = 10  # 'x' points to an integer object with value 10
+name = "Vaibhaw"  # 'name' points to a string object "Vaibhaw"
+
+
+ Variable Limitations:0
+- Naming Rules:
+  - A variable name must start with a letter (a-z, A-Z) or an underscore (_).
+  - It cannot start with a number.
+  - Variable names can only contain alphanumeric characters and underscores (A-z, 0-9, and _).
+  - Variable names are case-sensitive (e.g., `myVar`, `myvar`, and `MyVar` are three different variables).
+
+Examples:
+Valid variable names
+_age = 25
+Name = "John"
+my_var = 10.5
+
+Invalid variable names
+2ndVar = "Hello"  # Starts with a number
+my-var = 5  # Contains a hyphen instead of an underscore
+
+ Limitations:
+1. Cannot Start with Numbers: A variable name cannot begin with a digit, e.g., `1st_value = 100` is invalid.
+2. Reserved Keywords: Variable names cannot be Python keywords like `if`, `else`, `while`, etc.
+3. Special Characters: Variable names cannot contain special characters like `!`, `@`, `#`, `$`, `%`, etc.
+
+### Memory Addressing in Variables
+When you create a variable, Python stores the value in a specific memory location and the variable points to this address. You can check the memory address using the `id()` function:
+
+```python
+x = 10
+print(id(x))  # Outputs the memory address where 10 is stored
+```
+
+Let's break down each concept and provide examples for clarity.
+
+### 1. `id()` Function in Python
+The `id()` function in Python returns the unique identifier (memory address) of an object. This ID is unique for the object during its lifetime.
+
+#### Example:
+```python
+a = 5
+print(id(a))  # Returns the memory address where the integer 5 is stored
+
+b = "Hello"
+print(id(b))  # Returns the memory address where the string "Hello" is stored
+```
+
+### 2. String Concatenation in Python
+String concatenation in Python refers to joining two or more strings together using the `+` operator.
+
+#### Examples:
+```python
+str1 = "Hello"
+str2 = "World"
+result = str1 + " " + str2  # Concatenates the strings with a space
+print(result)  # Outputs: Hello World
+```
+
+#### Exception:
+- Only strings can be concatenated. Attempting to concatenate a string with a non-string (like an integer) without conversion will raise a `TypeError`.
+
+```python
+# Valid
+name = "Vaibhaw"
+age = 25
+info = name + " is " + str(age) + " years old."
+print(info)  # Outputs: Vaibhaw is 25 years old.
+
+# Invalid
+# info = name + " is " + age + " years old."  # Raises TypeError
+```
+
+### 3. Arithmetic Operators in Python
+Arithmetic operators are used to perform mathematical operations.
+
+#### Examples:
+1. **Addition (`+`)**:
+   ```python
+   a = 10
+   b = 5
+   print(a + b)  # Outputs: 15
+   ```
+
+2. **Subtraction (`-`)**:
+   ```python
+   a = 10
+   b = 5
+   print(a - b)  # Outputs: 5
+   ```
+
+3. **Multiplication (`*`)**:
+   ```python
+   a = 10
+   b = 5
+   print(a * b)  # Outputs: 50
+   ```
+
+4. **Division (`/`)**:
+   ```python
+   a = 10
+   b = 5
+   print(a / b)  # Outputs: 2.0
+   ```
+
+5. **Floor Division (`//`)**:
+   Floor division returns the largest integer less than or equal to the division result.
+   ```python
+   a = 10
+   b = 3
+   print(a // b)  # Outputs: 3
+   ```
+
+6. **Modulus (`%`)**:
+   Returns the remainder of the division.
+   ```python
+   a = 10
+   b = 3
+   print(a % b)  # Outputs: 1
+   ```
+
+7. **Exponentiation (`**`)**:
+   Raises a number to the power of another.
+   ```python
+   a = 2
+   b = 3
+   print(a ** b)  # Outputs: 8
+   ```
+
+### 4. Assignment Operators in Python
+Assignment operators are used to assign values to variables.
+
+#### Examples:
+1. **Simple Assignment (`=`)**:
+   ```python
+   a = 10
+   ```
+
+2. **Add and Assign (`+=`)**:
+   ```python
+   a = 10
+   a += 5  # Equivalent to a = a + 5
+   print(a)  # Outputs: 15
+   ```
+
+3. **Subtract and Assign (`-=`)**:
+   ```python
+   a = 10
+   a -= 5  # Equivalent to a = a - 5
+   print(a)  # Outputs: 5
+   ```
+
+4. **Multiply and Assign (`*=`)**:
+   ```python
+   a = 10
+   a *= 5  # Equivalent to a = a * 5
+   print(a)  # Outputs: 50
+   ```
+
+5. **Divide and Assign (`/=`)**:
+   ```python
+   a = 10
+   a /= 5  # Equivalent to a = a / 5
+   print(a)  # Outputs: 2.0
+   ```
+
+6. **Floor Divide and Assign (`//=`)**:
+   ```python
+   a = 10
+   a //= 3  # Equivalent to a = a // 3
+   print(a)  # Outputs: 3
+   ```
+
+7. **Modulus and Assign (`%=`)**:
+   ```python
+   a = 10
+   a %= 3  # Equivalent to a = a % 3
+   print(a)  # Outputs: 1
+   ```
+
+8. **Exponentiate and Assign (`**=`)**:
+   ```python
+   a = 2
+   a **= 3  # Equivalent to a = a ** 3
+   print(a)  # Outputs: 8
+   ```
+
+### 5. Comparison Operators in Python
+Comparison operators compare two values and return a boolean (`True` or `False`).
+
+#### Examples:
+1. **Equal To (`==`)**:
+   ```python
+   a = 5
+   b = 5
+   print(a == b)  # Outputs: True
+   ```
+
+2. **Not Equal To (`!=`)**:
+   ```python
+   a = 5
+   b = 3
+   print(a != b)  # Outputs: True
+   ```
+
+3. **Greater Than (`>`)**:
+   ```python
+   a = 5
+   b = 3
+   print(a > b)  # Outputs: True
+   ```
+
+4. **Less Than (`<`)**:
+   ```python
+   a = 5
+   b = 3
+   print(a < b)  # Outputs: False
+   ```
+
+5. **Greater Than or Equal To (`>=`)**:
+   ```python
+   a = 5
+   b = 5
+   print(a >= b)  # Outputs: True
+   ```
+
+6. **Less Than or Equal To (`<=`)**:
+   ```python
+   a = 5
+   b = 5
+   print(a <= b)  # Outputs: True
+   ```
+
+#### Example: Finding Odd and Even Numbers
+```python
+number = 10
+print(number % 2 == 0)  # True if even, False if odd
+```
+
+### 6. Logical Operators in Python
+Logical operators are used to combine conditional statements.
+
+#### Examples:
+1. **AND (`and`)**:
+   ```python
+   a = True
+   b = False
+   print(a and b)  # Outputs: False
+
+   # Example: Checking if a number is within a range
+   num = 15
+   print(num > 10 and num < 20)  # Outputs: True
+   ```
+
+2. **OR (`or`)**:
+   ```python
+   a = True
+   b = False
+   print(a or b)  # Outputs: True
+
+   # Example: Checking if a number is outside a range
+   num = 5
+   print(num < 10 or num > 20)  # Outputs: True
+   ```
+
+3. **NOT (`not`)**:
+   ```python
+   a = True
+   print(not a)  # Outputs: False
+   ```
+
+### 7. Membership Operators in Python
+Membership operators test for membership in a sequence (e.g., strings, lists).
+
+#### Examples:
+1. **IN (`in`)**:
+   ```python
+   text = "Hello, Vaibhaw"
+   print("Vaibhaw" in text)  # Outputs: True
+
+   nums = [1, 2, 3, 4, 5]
+   print(3 in nums)  # Outputs: True
+   ```
+
+2. **NOT IN (`not in`)**:
+   ```python
+   text = "Hello, Vaibhaw"
+   print("Chirag" not in text)  # Outputs: True
+
+   nums = [1, 2, 3, 4, 5]
+   print(6 not in nums)  # Outputs: True
+   ```
+
+### 8. Identity Operators in Python
+Identity operators compare the memory locations of two objects.
+
+#### Examples:
+1. **IS (`is`)**:
+   ```python
+   a = [1, 2, 3]
+   b = a
+   print(a is b)  # Outputs: True (both variables point to the same object)
+
+   c = [1, 2, 3]
+   print(a is c)  # Outputs: False (different objects with the same value)
+   ```
+
+2. **IS NOT (`is not`)**:
+   ```python
+   a = [1, 2, 3]
+   c = [1, 2, 3]
+   print(a is not c)  # Outputs: True (different objects)
+   ```
+
+### 9. Bitwise Operators in Python
+Bitwise operators operate on the binary representations of integers.
+
+#### Examples:
+1. **AND (`&`)**:
+   ```python
+   a = 5  # Binary: 0101
+   b = 3  # Binary: 0011
+   print(a & b)  # Outputs: 1 (Binary: 0001)
+   ```
+
+2. **OR (`|`)**:
+   ```python
+   a = 5  # Binary: 0101
+   b = 3  # Binary: 0011
+  
+### 1. `bin()` Function in Python
+The `bin()` function in Python converts an integer into its binary equivalent, represented as a string prefixed with `'0b'`.
+
+#### Examples:
+1. **Converting an Integer to Binary**:
+   ```python
+   num = 10
+   binary = bin(num)
+   print(binary)  # Outputs: '0b1010'
+   ```
+
+2. **Converting a Negative Integer to Binary**:
+   ```python
+   num = -5
+   binary = bin(num)
+   print(binary)  # Outputs: '-0b101'
+   ```
+
+### 2. Python is Case-Sensitive
+Python treats uppercase and lowercase characters as distinct. This means that variables with the same name but different cases are considered different variables.
+
+#### Examples:
+1. **Different Variable Names**:
+   ```python
+   var = 10
+   Var = 20
+   print(var)  # Outputs: 10
+   print(Var)  # Outputs: 20
+   ```
+
+2. **Function Names**:
+   ```python
+   def myFunction():
+       return "Hello"
+
+   def MyFunction():
+       return "World"
+
+   print(myFunction())  # Outputs: Hello
+   print(MyFunction())  # Outputs: World
+   ```
+
+### 3. Data Types in Python (Mutable and Immutable)
+
+Python has various data types, some of which are mutable (can be changed after creation) and some are immutable (cannot be changed after creation).
+
+#### Mutable Data Types:
+1. **List**:
+   - Can be modified after creation.
+   - Example:
+     ```python
+     my_list = [1, 2, 3]
+     my_list[0] = 10  # Modifies the first element
+     print(my_list)  # Outputs: [10, 2, 3]
+     ```
+
+2. **Dictionary**:
+   - Key-value pairs can be added, modified, or removed.
+   - Example:
+     ```python
+     my_dict = {'a': 1, 'b': 2}
+     my_dict['a'] = 10  # Modifies the value of key 'a'
+     print(my_dict)  # Outputs: {'a': 10, 'b': 2}
+     ```
+
+3. **Set**:
+   - Elements can be added or removed.
+   - Example:
+     ```python
+     my_set = {1, 2, 3}
+     my_set.add(4)  # Adds an element to the set
+     print(my_set)  # Outputs: {1, 2, 3, 4}
+     ```
+
+#### Immutable Data Types:
+1. **String**:
+   - Cannot be changed after creation.
+   - Example:
+     ```python
+     my_str = "Hello"
+     # my_str[0] = 'h'  # This will raise a TypeError
+     new_str = my_str.lower()  # Creates a new string
+     print(new_str)  # Outputs: hello
+     ```
+
+2. **Tuple**:
+   - Cannot be modified after creation.
+   - Example:
+     ```python
+     my_tuple = (1, 2, 3)
+     # my_tuple[0] = 10  # This will raise a TypeError
+     print(my_tuple)  # Outputs: (1, 2, 3)
+     ```
+
+3. **Integer**:
+   - Cannot be changed after creation.
+   - Example:
+     ```python
+     num = 10
+     num = 20  # Creates a new integer object
+     print(num)  # Outputs: 20
+     ```
+
+4. **Float**:
+   - Cannot be changed after creation.
+   - Example:
+     ```python
+     num = 10.5
+     num = 20.5  # Creates a new float object
+     print(num)  # Outputs: 20.5
+     ```
+
+5. **Boolean**:
+   - Represents `True` or `False` and is immutable.
+   - Example:
+     ```python
+     is_true = True
+     is_true = False  # Creates a new boolean object
+     print(is_true)  # Outputs: False
+     ```
+
+In Python, mutable and immutable data types come with different methods that allow you to interact with and manipulate these data structures. Here's a breakdown of common methods for each:
+
+### 1. **Mutable Data Types and Their Methods**
+
+#### **List**
+- **`.append(x)`**: Adds an item `x` to the end of the list.
+  ```python
+  my_list = [1, 2, 3]
+  my_list.append(4)
+  print(my_list)  # Outputs: [1, 2, 3, 4]
+  ```
+  
+- **`.extend(iterable)`**: Extends the list by appending elements from an iterable.
+  ```python
+  my_list = [1, 2, 3]
+  my_list.extend([4, 5])
+  print(my_list)  # Outputs: [1, 2, 3, 4, 5]
+  ```
+  
+- **`.insert(i, x)`**: Inserts an item `x` at a given position `i`.
+  ```python
+  my_list = [1, 2, 3]
+  my_list.insert(1, 10)
+  print(my_list)  # Outputs: [1, 10, 2, 3]
+  ```
+
+- **`.remove(x)`**: Removes the first occurrence of an item `x`.
+  ```python
+  my_list = [1, 2, 3, 2]
+  my_list.remove(2)
+  print(my_list)  # Outputs: [1, 3, 2]
+  ```
+
+- **`.pop([i])`**: Removes and returns the item at the given position `i`. If no index is specified, removes and returns the last item.
+  ```python
+  my_list = [1, 2, 3]
+  item = my_list.pop(1)
+  print(item)  # Outputs: 2
+  print(my_list)  # Outputs: [1, 3]
+  ```
+
+- **`.clear()`**: Removes all items from the list.
+  ```python
+  my_list = [1, 2, 3]
+  my_list.clear()
+  print(my_list)  # Outputs: []
+  ```
+
+- **`.reverse()`**: Reverses the elements of the list in place.
+  ```python
+  my_list = [1, 2, 3]
+  my_list.reverse()
+  print(my_list)  # Outputs: [3, 2, 1]
+  ```
+
+- **`.sort(key=None, reverse=False)`**: Sorts the list in ascending order (or descending if `reverse=True`).
+  ```python
+  my_list = [3, 1, 2]
+  my_list.sort()
+  print(my_list)  # Outputs: [1, 2, 3]
+  ```
+
+#### **Dictionary**
+- **`.get(key[, default])`**: Returns the value for `key` if `key` is in the dictionary; otherwise, returns `default`.
+  ```python
+  my_dict = {'a': 1, 'b': 2}
+  print(my_dict.get('a'))  # Outputs: 1
+  print(my_dict.get('c', 3))  # Outputs: 3
+  ```
+
+- **`.keys()`**: Returns a view object that displays a list of all the keys in the dictionary.
+  ```python
+  my_dict = {'a': 1, 'b': 2}
+  print(my_dict.keys())  # Outputs: dict_keys(['a', 'b'])
+  ```
+
+- **`.values()`**: Returns a view object that displays a list of all the values in the dictionary.
+  ```python
+  my_dict = {'a': 1, 'b': 2}
+  print(my_dict.values())  # Outputs: dict_values([1, 2])
+  ```
+
+- **`.items()`**: Returns a view object that displays a list of dictionary's key-value tuple pairs.
+  ```python
+  my_dict = {'a': 1, 'b': 2}
+  print(my_dict.items())  # Outputs: dict_items([('a', 1), ('b', 2)])
+  ```
+
+- **`.pop(key[, default])`**: Removes the specified key and returns the corresponding value. If the key is not found, `default` is returned.
+  ```python
+  my_dict = {'a': 1, 'b': 2}
+  value = my_dict.pop('a')
+  print(value)  # Outputs: 1
+  print(my_dict)  # Outputs: {'b': 2}
+  ```
+
+- **`.update([other])`**: Updates the dictionary with elements from another dictionary object or from an iterable of key-value pairs.
+  ```python
+  my_dict = {'a': 1, 'b': 2}
+  my_dict.update({'c': 3})
+  print(my_dict)  # Outputs: {'a': 1, 'b': 2, 'c': 3}
+  ```
+
+- **`.clear()`**: Removes all items from the dictionary.
+  ```python
+  my_dict = {'a': 1, 'b': 2}
+  my_dict.clear()
+  print(my_dict)  # Outputs: {}
+  ```
+
+#### **Set**
+- **`.add(x)`**: Adds an element `x` to the set.
+  ```python
+  my_set = {1, 2, 3}
+  my_set.add(4)
+  print(my_set)  # Outputs: {1, 2, 3, 4}
+  ```
+
+- **`.remove(x)`**: Removes an element `x` from the set. Raises `KeyError` if `x` is not found.
+  ```python
+  my_set = {1, 2, 3}
+  my_set.remove(2)
+  print(my_set)  # Outputs: {1, 3}
+  ```
+
+- **`.discard(x)`**: Removes an element `x` from the set if it is present. Does not raise an error if `x` is not found.
+  ```python
+  my_set = {1, 2, 3}
+  my_set.discard(2)
+  my_set.discard(4)  # No error even if 4 is not in the set
+  print(my_set)  # Outputs: {1, 3}
+  ```
+
+- **`.pop()`**: Removes and returns an arbitrary element from the set.
+  ```python
+  my_set = {1, 2, 3}
+  element = my_set.pop()
+  print(element)  # Outputs: 1 (for example)
+  print(my_set)  # Outputs: {2, 3}
+  ```
+
+- **`.clear()`**: Removes all elements from the set.
+  ```python
+  my_set = {1, 2, 3}
+  my_set.clear()
+  print(my_set)  # Outputs: set()
+  ```
+
+- **`.update(iterable)`**: Updates the set, adding elements from all other sets or any iterable.
+  ```python
+  my_set = {1, 2}
+  my_set.update([3, 4])
+  print(my_set)  # Outputs: {1, 2, 3, 4}
+  ```
+
+### 2. **Immutable Data Types and Their Methods**
+
+#### **String**
+- **`.lower()`**: Returns a copy of the string with all characters in lowercase.
+  ```python
+  text = "Hello"
+  print(text.lower())  # Outputs: "hello"
+  ```
+
+- **`.upper()`**: Returns a copy of the string with all characters in uppercase.
+  ```python
+  text = "Hello"
+  print(text.upper())  # Outputs: "HELLO"
+  ```
+
+- **`.replace(old, new[, count])`**: Returns a copy of the string with all occurrences of substring `old` replaced by `new`. If `count` is specified, only the first `count` occurrences are replaced.
+  ```python
+  text = "Hello, Vaibhaw"
+  print(text.replace("Vaibhaw", "Chirag"))  # Outputs: "Hello, Chirag"
+  ```
+
+- **`.find(sub[, start[, end]])`**: Returns the lowest index in the string where substring `sub` is found within the slice `s[start:end]`. Returns `-1` if the substring is not found.
+  ```python
+  text = "Hello, Vaibhaw"
+  print(text.find("Vaibhaw"))  # Outputs: 7
+  ```
+
+- **`.split(sep=None, maxsplit=-1)`**: Returns a list of the words in the string, using `sep` as the delimiter string.
+  ```python
+  text = "Hello Vaibhaw Pandey"
+  print(text.split())  # Outputs: ['Hello', 'Vaibhaw', 'Pandey']
+  ```
+
+- **`.strip([chars])`**: Returns a copy of the string with leading and trailing whitespace removed, or characters removed if `chars` is provided.
+  ```python
+  text = "   Hello, Vaibhaw   "
+  print(text.strip())  # Outputs: "Hello, Vaibhaw"
+  ```
+
+#### **Tuple**
+- **`.count(x)`**: Returns the number of times `x` appears in the tuple.
+  ```python
+  my_tuple = (1, 2, 3, 2, 2)
+  print(my_tuple.count(2))  # Outputs: 3
+  ``
+
+### 1. Single, Double, and Triple Quotation Marks in Python
+
+Python supports three types of quotation marks to define strings: single (`'`), double (`"`), and triple (`'''` or `"""`).
+
+#### **Single Quotation Marks (`'`)**
+Used to define a string. It’s common when the string does not contain any single quotation marks within it.
+- **Example**:
+  ```python
+  single_quote_str = 'Hello, World!'
+  print(single_quote_str)  # Outputs: Hello, World!
+  ```
+
+#### **Double Quotation Marks (`"`)**
+Similar to single quotes, but useful when the string contains single quotes.
+- **Example**:
+  ```python
+  double_quote_str = "It's a beautiful day!"
+  print(double_quote_str)  # Outputs: It's a beautiful day!
+  ```
+
+#### **Triple Quotation Marks (`'''` or `"""`)**
+Used for multi-line strings or when the string contains both single and double quotes.
+- **Example**:
+  ```python
+  triple_quote_str = """This is a multi-line
+  string with 'single' and "double" quotes."""
+  print(triple_quote_str)
+  # Outputs:
+  # This is a multi-line
+  # string with 'single' and "double" quotes.
+  ```
+
+### 2. In-Built Functions in Python: `type()`
+The `type()` function in Python is used to determine the type of an object or variable.
+
+#### **Example**:
+```python
+# Checking the type of a string
+text = "Hello"
+print(type(text))  # Outputs: <class 'str'>
+
+# Checking the type of an integer
+num = 10
+print(type(num))  # Outputs: <class 'int'>
+```
+
+### 3. How to Update a List
+You can update a list by modifying its elements, appending new elements, or using methods like `extend()`.
+
+#### **Example**:
+```python
+# Initial list
+my_list = [1, 2, 3]
+
+# Updating an element
+my_list[1] = 20
+print(my_list)  # Outputs: [1, 20, 3]
+
+# Appending a new element
+my_list.append(4)
+print(my_list)  # Outputs: [1, 20, 3, 4]
+
+# Extending the list with another list
+my_list.extend([5, 6])
+print(my_list)  # Outputs: [1, 20, 3, 4, 5, 6]
+```
+
+### 4. Difference Between Tuple and List
+
+#### **Tuple**
+- **Immutable**: Once created, the elements of a tuple cannot be modified.
+- **Syntax**: Defined using parentheses `()` or no brackets at all.
+- **Use Case**: Typically used for fixed collections of items (e.g., coordinates, records).
+- **Example**:
+  ```python
+  my_tuple = (1, 2, 3)
+  print(my_tuple[0])  # Outputs: 1
+  ```
+
+#### **List**
+- **Mutable**: The elements of a list can be modified after creation.
+- **Syntax**: Defined using square brackets `[]`.
+- **Use Case**: Used for collections of items that may change over time (e.g., shopping list, task list).
+- **Example**:
+  ```python
+  my_list = [1, 2, 3]
+  my_list[0] = 10
+  print(my_list)  # Outputs: [10, 2, 3]
+  ```
+
+**Key Differences**:
+1. **Mutability**: Tuples are immutable, while lists are mutable.
+2. **Performance**: Tuples are generally faster than lists due to their immutability.
+3. **Syntax**: Tuples use `()` while lists use `[]`.
+
+
+### 1. What is a Dictionary in Python?
+
+A **dictionary** in Python is an unordered collection of items. Each item is stored as a key-value pair, where the key is unique, and the value can be of any data type. Dictionaries are mutable, meaning you can change the values associated with the keys.
+
+#### **Example 1: Simple Dictionary**
+```python
+# Creating a dictionary
+student = {
+    "name": "Chirag",
+    "age": 25,
+    "course": "DevOps"
+}
+
+# Accessing a value using its key
+print(student["name"])  # Outputs: Chirag
+```
+
+#### **Example 2: Nested Dictionary**
+```python
+# Creating a nested dictionary
+students = {
+    "student1": {
+        "name": "Chirag",
+        "age": 25,
+        "course": "DevOps"
+    },
+    "student2": {
+        "name": "Vaibhaw",
+        "age": 24,
+        "course": "Data Science"
+    }
+}
+
+# Accessing values in a nested dictionary
+print(students["student2"]["course"])  # Outputs: Data Science
+```
+
+### 2. What is a Set in Python?
+
+A **set** in Python is an unordered collection of unique elements. Sets are mutable, meaning you can add or remove elements after the set has been created. However, each element in a set must be immutable.
+
+#### **Example 1: Creating a Set**
+```python
+# Creating a set
+fruits = {"apple", "banana", "cherry"}
+
+# Adding an element to the set
+fruits.add("orange")
+print(fruits)  # Outputs: {'banana', 'cherry', 'orange', 'apple'}
+```
+
+#### **Example 2: Set Operations**
+```python
+# Creating two sets
+set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+
+# Union of sets
+union_set = set1.union(set2)
+print(union_set)  # Outputs: {1, 2, 3, 4, 5}
+
+# Intersection of sets
+intersection_set = set1.intersection(set2)
+print(intersection_set)  # Outputs: {3}
+```
+
+### 3. User Input and Typecasting in Python
+
+**User Input**: Python uses the `input()` function to take input from the user. The input is always treated as a string, so it often needs to be typecasted to the appropriate type.
+
+#### **Example 1: Taking Integer Input**
+```python
+# Taking integer input from the user
+age = int(input("Enter your age: "))
+print("Your age is:", age)
+```
+
+#### **Example 2: Taking Float Input**
+```python
+# Taking float input from the user
+height = float(input("Enter your height in meters: "))
+print("Your height is:", height)
+```
+
+**Typecasting**: Typecasting is the process of converting one data type to another. Python supports various functions like `int()`, `float()`, `str()`, and `eval()` for typecasting.
+
+#### **Example 1: Typecasting with `int()` and `float()`**
+```python
+# Taking a string input and converting it to an integer
+num_str = "10"
+num_int = int(num_str)
+print(num_int)  # Outputs: 10
+print(type(num_int))  # Outputs: <class 'int'>
+
+# Converting a string to a float
+num_float = float("10.5")
+print(num_float)  # Outputs: 10.5
+print(type(num_float))  # Outputs: <class 'float'>
+```
+
+#### **Example 2: Typecasting with `eval()`**
+The `eval()` function evaluates a string as a Python expression. It can handle binary, hexadecimal, and arithmetic operations.
+
+```python
+# Evaluating a binary string
+binary_str = "0b1101"
+binary_num = eval(binary_str)
+print(binary_num)  # Outputs: 13
+
+# Evaluating an arithmetic expression
+expression = "3 * (2 + 5)"
+result = eval(expression)
+print(result)  # Outputs: 21
+```
+### 1. Conditional Statements in Python
+
+Conditional statements in Python are used to execute code blocks based on certain conditions. Python uses indentation to define the blocks of code.
+
+#### **Example of `if` Statement**
+```python
+# Simple if statement
+age = 20
+if age >= 18:
+    print("You are an adult.")  # This will execute if the condition is true
+```
+
+#### **Example of `if-else` Statement**
+```python
+# if-else statement
+age = 16
+if age >= 18:
+    print("You are an adult.")
+else:
+    print("You are a minor.")  # This will execute if the condition is false
+```
+
+#### **Example of `if-elif-else` Statement**
+```python
+# if-elif-else statement
+marks = 85
+if marks >= 90:
+    print("Grade: A")
+elif marks >= 80:
+    print("Grade: B")
+elif marks >= 70:
+    print("Grade: C")
+else:
+    print("Grade: D")
+```
+
+### 2. What is the `range()` Function in Python?
+
+The `range()` function generates a sequence of numbers. It is commonly used for looping a specific number of times in `for` loops.
+
+#### **Example 1: Basic `range()` Usage**
+```python
+# Generate numbers from 0 to 4
+for i in range(5):
+    print(i)
+# Outputs: 0, 1, 2, 3, 4
+```
+
+#### **Example 2: `range()` with Start, Stop, and Step**
+```python
+# Generate numbers from 1 to 9, with a step of 2
+for i in range(1, 10, 2):
+    print(i)
+# Outputs: 1, 3, 5, 7, 9
+```
+
+### 3. Loops in Python
+
+Loops are used to iterate over a sequence (like a list, tuple, string, etc.) or a block of code multiple times.
+
+#### **For Loop with `range()` Function**
+The `for` loop is used to iterate over a sequence. When combined with `range()`, it allows you to loop over a sequence of numbers.
+
+```python
+# For loop using range() to iterate 5 times
+for i in range(5):
+    print("Iteration", i+1)
+# Outputs:
+# Iteration 1
+# Iteration 2
+# Iteration 3
+# Iteration 4
+# Iteration 5
+```
+
+#### **Example: Iterating Over a List**
+```python
+# List of fruits
+fruits = ["apple", "banana", "cherry"]
+
+# For loop to iterate over each element in the list
+for fruit in fruits:
+    print(fruit)
+# Outputs:
+# apple
+# banana
+# cherry
+```
+
+In these examples, indentation is used to define the block of code that belongs to the `if`, `else`, and `for` statements, which is a key part of Python's syntax.
+
+### Strings in Python and Their Methods
+
+Strings in Python are sequences of characters and are immutable. Here are some common methods used with strings, along with examples.
+
+#### **1. `str.upper()` Method**
+Converts all characters in a string to uppercase.
+```python
+text = "hello world"
+upper_text = text.upper()
+print(upper_text)  # Outputs: HELLO WORLD
+```
+
+#### **2. `str.lower()` Method**
+Converts all characters in a string to lowercase.
+```python
+text = "HELLO WORLD"
+lower_text = text.lower()
+print(lower_text)  # Outputs: hello world
+```
+
+#### **3. `str.strip()` Method**
+Removes whitespace characters from the beginning and end of a string.
+```python
+text = "  hello world  "
+stripped_text = text.strip()
+print(f"'{stripped_text}'")  # Outputs: 'hello world'
+```
+
+#### **4. `str.replace()` Method**
+Replaces occurrences of a substring with another substring.
+```python
+text = "hello world"
+replaced_text = text.replace("world", "Python")
+print(replaced_text)  # Outputs: hello Python
+```
+
+#### **5. `str.split()` Method**
+Splits a string into a list of substrings based on a specified delimiter.
+```python
+text = "apple,banana,cherry"
+split_text = text.split(",")
+print(split_text)  # Outputs: ['apple', 'banana', 'cherry']
+```
+
+#### **6. `str.find()` Method**
+Finds the first occurrence of a specified value. Returns -1 if the value is not found.
+```python
+text = "hello world"
+index = text.find("world")
+print(index)  # Outputs: 6
+```
+
+### Reversing a String Using Slicing
+
+To reverse a string, you can use slicing with a step of `-1`.
+```python
+text = "hello"
+reversed_text = text[::-1]
+print(reversed_text)  # Outputs: olleh
+```
+
+### String Iteration
+
+You can iterate over each character in a string using a `for` loop.
+```python
+text = "hello"
+for char in text:
+    print(char)
+# Outputs:
+# h
+# e
+# l
+# l
+# o
+```
+
+### `len()` Function
+
+The `len()` function returns the number of characters in a string (or the number of elements in other data types like lists).
+
+#### **Example of `len()` with a String**
+```python
+text = "hello world"
+length = len(text)
+print(length)  # Outputs: 11
+```
+
+#### **Example of Iteration Using `len()`**
+You can use `len()` to iterate through a string by index.
+```python
+text = "hello"
+for i in range(len(text)):
+    print(f"Character at index {i} is {text[i]}")
+# Outputs:
+# Character at index 0 is h
+# Character at index 1 is e
+# Character at index 2 is l
+# Character at index 3 is l
+# Character at index 4 is o
+```
+
+### String Methods and Functions
+
+#### **1. `str.find()` Method**
+
+The `find()` method returns the index of the first occurrence of the specified value. It returns `-1` if the value is not found.
+
+##### **Example 1**
+```python
+text = "hello world"
+index = text.find("world")
+print(index)  # Outputs: 6
+```
+
+##### **Example 2**
+```python
+text = "hello world"
+index = text.find("Python")
+print(index)  # Outputs: -1
+```
+
+#### **2. `str.index()` Method**
+
+The `index()` method returns the index of the first occurrence of the specified value. It raises a `ValueError` if the value is not found.
+
+##### **Example 1**
+```python
+text = "hello world"
+index = text.index("world")
+print(index)  # Outputs: 6
+```
+
+##### **Example 2**
+```python
+text = "hello world"
+try:
+    index = text.index("Python")
+except ValueError:
+    index = "Not found"
+print(index)  # Outputs: Not found
+```
+
+#### **3. `str.isalpha()` Method**
+
+The `isalpha()` method checks if all characters in the string are alphabetic and returns `True` or `False`.
+
+##### **Example 1**
+```python
+text = "hello"
+print(text.isalpha())  # Outputs: True
+```
+
+##### **Example 2**
+```python
+text = "hello123"
+print(text.isalpha())  # Outputs: False
+```
+
+#### **4. `str.isdigit()` Method**
+
+The `isdigit()` method checks if all characters in the string are digits and returns `True` or `False`.
+
+##### **Example 1**
+```python
+text = "12345"
+print(text.isdigit())  # Outputs: True
+```
+
+##### **Example 2**
+```python
+text = "123a45"
+print(text.isdigit())  # Outputs: False
+```
+
+#### **5. `str.isalnum()` Method**
+
+The `isalnum()` method checks if all characters in the string are alphanumeric (letters and numbers) and returns `True` or `False`.
+
+##### **Example 1**
+```python
+text = "hello123"
+print(text.isalnum())  # Outputs: True
+```
+
+##### **Example 2**
+```python
+text = "hello 123"
+print(text.isalnum())  # Outputs: False
+```
+
+#### **6. `chr()` Function**
+
+The `chr()` function returns a string representing a character whose Unicode code point is the integer passed.
+
+##### **Example 1**
+```python
+char = chr(65)
+print(char)  # Outputs: A
+```
+
+##### **Example 2**
+```python
+char = chr(97)
+print(char)  # Outputs: a
+```
+
+#### **7. `ord()` Function**
+
+The `ord()` function returns the Unicode code point for a given character.
+
+##### **Example 1**
+```python
+code = ord('A')
+print(code)  # Outputs: 65
+```
+
+##### **Example 2**
+```python
+code = ord('a')
+print(code)  # Outputs: 97
+```
+
+### `format()` Method in Python
+
+The `format()` method allows you to format strings by inserting values into placeholders.
+
+#### **Basic Usage**
+
+##### **Example 1: Using Positional Arguments**
+```python
+text = "Hello, {}!"
+formatted_text = text.format("Alice")
+print(formatted_text)  # Outputs: Hello, Alice!
+```
+
+##### **Example 2: Using Multiple Positional Arguments**
+```python
+text = "{} is {} years old."
+formatted_text = text.format("Bob", 30)
+print(formatted_text)  # Outputs: Bob is 30 years old.
+```
+
+#### **Named Arguments**
+
+##### **Example 3: Using Named Arguments**
+```python
+text = "{name} is {age} years old."
+formatted_text = text.format(name="Charlie", age=25)
+print(formatted_text)  # Outputs: Charlie is 25 years old.
+```
+
+#### **Formatting Numbers**
+
+##### **Example 4: Formatting Floating-Point Numbers**
+```python
+text = "The value is {:.2f}."
+formatted_text = text.format(12.34567)
+print(formatted_text)  # Outputs: The value is 12.35.
+```
+
+##### **Example 5: Formatting Integers with Padding**
+```python
+text = "The number is {:05d}."
+formatted_text = text.format(42)
+print(formatted_text)  # Outputs: The number is 00042.
+```
+
+#### **Formatting with Alignment**
+
+##### **Example 6: Aligning Text**
+```python
+text = "|{:<10}|{:^10}|{:>10}|"
+formatted_text = text.format("left", "center", "right")
+print(formatted_text)  
+# Outputs: |left      |  center  |     right|
+```
+
+### Summary
+
+- **`find()`**: Finds the index of a substring. Returns `-1` if not found.
+- **`index()`**: Finds the index of a substring. Raises `ValueError` if not found.
+- **`isalpha()`**: Checks if all characters are alphabetic.
+- **`isdigit()`**: Checks if all characters are digits.
+- **`isalnum()`**: Checks if all characters are alphanumeric.
+- **`chr()`**: Converts an integer to its corresponding Unicode character.
+- **`ord()`**: Converts a character to its Unicode code point.
+- **`format()`**: Formats strings using positional, named arguments, and various formatting options.

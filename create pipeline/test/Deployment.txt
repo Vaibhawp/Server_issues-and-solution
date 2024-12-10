@@ -1,0 +1,42 @@
+
+NEW CHALLENGE:
+the issue is of path so focus on path only rest things are clear ---> not getting log because for logs existence required thus no path no existence so configure the path properly
+
+ctrl+f---> (to search word)
+ctrl+r --->(to reload page)
+ctrl+j ---->(to see downloads)
+
+Path of jmeter ==> downloads-->jmeter--> bin--> jmeter
+
+select thread group==> go to tools ==>import from curl option and then paste the whole curls there
+create:http request,view result tree,summary report
+
+=======================================deployment of python=================
+git pull 
+pm2 reload <id>
+=======================if new clone then ====================================
+Remove the existing pm2
+git clone
+if myenv exist check by doing ls--------remove it ----------- rm -rf myenv/
+python3.12 -m venv myenv
+source myenv/bin/activate
+pip install -r requirements.txt 
+PORT=8000 pm2 start app/main.py --name "[ECHO-API]" --interpreter python3.12
+pm2 save
+pm2 reload <id>
+deactivate ------> to exit from path env@ip-12,3424,;;;;;;
+
+============================================================================================
+clone liya to pull leni ki jarurat nhi hai agar clone nhi ahi to pull lo
+
+manual code deploy echo and kcast
+================================
+if you have cloned the must run the command : pm2 start npm --name "YourAppName" -- run start
+
+go to file location
+git pull
+npm i
+npm run build 
+pm2 status 
+pm2 reload <id>
+if pm2 delete <id> is done so to start it use command ---->pm2 reload ECHO-APP || pm2 start npm --name ECHO-APP -- run start
