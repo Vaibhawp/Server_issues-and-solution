@@ -1,2 +1,0 @@
-* * * * * /bin/bash /home/ubuntu/ECHO/cron/script.sh >> /tmp/indexer.log 2>&1
-0 0 * * * /bin/bash /home/ubuntu/ECHO/token_cron/echoai.token_cron/script.sh >> /tmp/token_cron.log 2>&1
