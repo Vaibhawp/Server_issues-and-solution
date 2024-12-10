@@ -1,0 +1,68 @@
+Basic Operations
+✔️ terraform init - Initialize a new or existing Terraform configuration
+✔️ terraform validate - Validate the Terraform configuration files
+✔️ terraform fmt - Format configuration files to canonical style
+✔️ terraform version - Display the installed Terraform version
+✔️ terraform providers - List providers required by the current configuration
+
+Workspace Management
+✔️ terraform workspace list - List all Terraform workspaces
+✔️ terraform workspace new <name> - Create a new workspace
+✔️ terraform workspace select <name> - Switch to a different workspace
+✔️ terraform workspace show - Display the current workspace
+
+Planning
+✔️ terraform plan - Generate and show an execution plan
+✔️ terraform plan -out=<plan-name> - Save the execution plan to a file
+
+Execution
+✔️ terraform apply - Apply changes to infrastructure
+✔️ terraform apply <plan-file> - Apply a saved execution plan
+✔️ terraform destroy - Destroy Terraform-managed infrastructure
+✔️ terraform destroy -target=<resource> - Destroy a specific resource
+
+State Management
+✔️ terraform state list - List all resources in the state
+✔️ terraform state show <resource> - Show detailed information about a resource
+✔️ terraform state rm <resource> - Remove a resource from the state file
+✔️ terraform state mv <source> <destination> - Move a resource in the state file
+
+Output and Variables
+✔️ terraform output - Show all output values
+✔️ terraform output <output-name> - Display a specific output value
+✔️ terraform variables - List all variables in the configuration
+
+Debugging
+✔️ terraform show - Show state or plan details in a human-readable format
+✔️ terraform refresh - Update state to reflect real-world resources
+✔️ terraform graph - Generate a visual graph of resources
+
+Providers and Plugins
+✔️ terraform providers - List required providers
+✔️ terraform login - Authenticate Terraform CLI with Terraform Cloud
+
+Import and Export
+✔️ terraform import <resource> <ID> - Import an existing resource into the state
+✔️ terraform state pull - Fetch the current state file
+✔️ terraform state push - Overwrite the remote state with a local state file
+
+Locks and Unlocks
+✔️ terraform force-unlock <lock-id> - Forcefully unlock the state file
+
+Advanced Operations
+✔️ terraform plan -destroy - Preview what resources will be destroyed
+✔️ terraform apply -auto-approve - Apply changes without prompting for approval
+✔️ terraform taint <resource> - Mark a resource for recreation
+✔️ terraform untaint <resource> - Unmark a resource for recreation
+✔️ terraform console - Interactive console for evaluating expressions
+
+💜 Bonus: Automation Tips 💜
+✔️ terraform init -backend-config="key=value" - Initialize with specific backend configuration
+✔️ terraform apply -var="key=value" - Pass variable values directly
+✔️ terraform apply -var-file="file.tfvars" - Pass a variable file during execution
+
+
+
+
+
+

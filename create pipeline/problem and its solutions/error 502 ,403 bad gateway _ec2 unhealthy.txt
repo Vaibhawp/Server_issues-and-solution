@@ -1,0 +1,3 @@
+situation: when the client is hitting the DNS getting bad gateaway
+assumption: let i have 4 target groups(ec2) and let   i had made one ec2 unhealthy by stopping apache by ==sudo -i ==> systemctl stop httpd ==> systemctl status httpd(to check the status)
+solution: Go to load balancer ==> go to target group and check how many servers are unhealthy ==> go to registered targets ==> check monitoring ( on cloud watch) ==> enable the httpd again issue resolved

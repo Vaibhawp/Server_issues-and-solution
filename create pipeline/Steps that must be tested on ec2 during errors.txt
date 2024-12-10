@@ -1,0 +1,17 @@
+   1. If taking a new clone and same application is running the 
+: pm2 kill <id>
+2. To check how many applications are running on any port 
+: sudo lsof -i:<port no.>
+3. To stops that application through the ports
+:sudo kill -9 <pid>
+
+
+
+
+s3://echo-testing/
+s3://echo-test-01/
+s3://echo-test-02/
+s3://echo-test-03/
+
+
+

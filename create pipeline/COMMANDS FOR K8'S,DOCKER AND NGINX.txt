@@ -1,0 +1,238 @@
+for location from which location you want to access just write on its location cmd or .code
+---------------------------------------------------------------------------------------------------------------------------
+FOR K8'S
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. Cluster Management
+kubectl cluster-info - Display cluster information.
+kubectl get nodes - List all nodes in the cluster.
+kubectl describe node <node-name> - Show details about a specific node.
+kubectl get namespaces - List all namespaces.
+2. Pod Management
+kubectl get pods - List all pods in the default namespace.
+kubectl get pods -n <namespace> - List all pods in a specific namespace.
+kubectl describe pod <pod-name> - Show details about a specific pod.
+kubectl logs <pod-name> - Retrieve logs from a specific pod.
+kubectl exec -it <pod-name> -- /bin/sh - Access a shell inside a running pod.
+kubectl delete pod <pod-name> - Delete a specific pod.
+3. Deployment Management
+kubectl get deployments - List all deployments.
+kubectl describe deployment <deployment-name> - Show details about a specific deployment.
+kubectl scale deployment <deployment-name> --replicas=<number> - Scale a deployment to a specified number of replicas.
+kubectl rollout status deployment/<deployment-name> - Check the rollout status of a deployment.
+kubectl rollout undo deployment/<deployment-name> - Roll back to the previous version of a deployment.
+4. Service Management
+kubectl get services - List all services.
+kubectl describe service <service-name> - Show details about a specific service.
+kubectl expose deployment <deployment-name> --type=<type> --port=<port> - Expose a deployment as a service.
+5. ConfigMaps and Secrets
+kubectl get configmaps - List all ConfigMaps.
+kubectl describe configmap <configmap-name> - Show details about a specific ConfigMap.
+kubectl get secrets - List all secrets.
+kubectl describe secret <secret-name> - Show details about a specific secret.
+6. Persistent Volumes and Claims
+kubectl get pv - List all persistent volumes.
+kubectl get pvc - List all persistent volume claims.
+7. Namespaces
+kubectl create namespace <namespace-name> - Create a new namespace.
+kubectl delete namespace <namespace-name> - Delete a specific namespace.
+8. Resource Quotas and Limits
+kubectl describe quota <quota-name> - Show details about a resource quota.
+kubectl get limitranges - List all limit ranges.
+======================================================================================================================
+k8's:
+Basic Operations
+✔️ `kubectl get pods` - List all pods in the current namespace
+✔️ `kubectl get pods -A` - List pods across all namespaces
+✔️ `kubectl get pods -o wide` - List pods with more detailed information
+✔️ `kubectl get nodes` - List all nodes in the cluster
+✔️ `kubectl describe node <node-name>` - Show detailed node information
+
+Pod Management
+✔️ `kubectl describe pod <pod-name>` - View detailed pod information
+✔️ `kubectl logs <pod-name>` - Fetch pod logs
+✔️ `kubectl logs -f <pod-name>` - Stream pod logs in real-time
+✔️ `kubectl exec -it <pod-name> -- /bin/bash` - Open shell in pod
+✔️ `kubectl port-forward <pod-name> 8080:80` - Forward local port to pod
+
+Deployment Operations
+✔️ `kubectl get deployments` - List all deployments
+✔️ `kubectl rollout history deployment <name>` - View deployment history
+✔️ `kubectl rollout undo deployment <name>` - Rollback to previous version
+✔️ `kubectl scale deployment <name> --replicas=5` - Scale deployment
+✔️ `kubectl set image deployment/<name> container=image:tag` - Update container image
+
+Configuration & Security
+✔️ `kubectl get configmaps` - List all ConfigMaps
+✔️ `kubectl get secrets` - List all Secrets
+✔️ `kubectl create secret generic <name> --from-file=./file` - Create secret from file
+✔️ `kubectl create configmap <name> --from-env-file=.env` - Create ConfigMap from env file
+✔️ `kubectl get serviceaccounts` - List service accounts
+
+Namespace Management
+✔️ `kubectl get namespaces` - List all namespaces
+✔️ `kubectl create namespace <name>` - Create namespace
+✔️ `kubectl delete namespace <name>` - Delete namespace
+✔️ `kubectl config set-context --current --namespace=<name>` - Switch namespace
+✔️ `kubectl get quota --all-namespaces` - Show resource quotas
+
+Service & Networking
+✔️ `kubectl get services` - List all services
+✔️ `kubectl get endpoints` - List service endpoints
+✔️ `kubectl get ingress` - List all ingress rules
+✔️ `kubectl describe ingress <name>` - Show ingress details
+✔️ `kubectl get networkpolicies` - List network policies
+
+Storage Operations
+✔️ `kubectl get pv` - List persistent volumes
+✔️ `kubectl get pvc` - List persistent volume claims
+✔️ `kubectl describe pv <name>` - Show volume details
+✔️ `kubectl describe pvc <name>` - Show volume claim details
+✔️ `kubectl get storageclasses` - List storage classes
+
+Cluster Management
+✔️ `kubectl cluster-info` - Display cluster information
+✔️ `kubectl top nodes` - Show node resource usage
+✔️ `kubectl top pods` - Show pod resource usage
+✔️ `kubectl api-resources` - List all resources
+✔️ `kubectl get events --sort-by=.metadata.creationTimestamp` - Show sorted events
+
+Advanced Operations
+✔️ `kubectl diff -f ./file.yaml` - Show differences before applying
+✔️ `kubectl explain pod.spec` - Get documentation for resource
+✔️ `kubectl auth can-i create deployments` - Check permissions
+✔️ `kubectl debug <pod-name> -it --image=busybox` - Debug with ephemeral container
+✔️ `kubectl wait --for=condition=ready pod <pod-name>` - Wait for pod readiness
+
+Maintenance & Troubleshooting
+✔️ `kubectl drain <node-name>` - Drain node for maintenance
+✔️ `kubectl uncordon <node-name>` - Mark node as schedulable
+✔️ `kubectl cordon <node-name>` - Mark node as unschedulable
+✔️ `kubectl get componentstatuses` - Check control plane health
+✔️ `kubectl describe certificatesigningrequests` - View CSRs
+
+💜Bonus: Context & Configuration💜
+✔️ `kubectl config get-contexts` - List all contexts
+✔️ `kubectl config use-context <name>` - Switch context
+✔️ `kubectl config view` - Show merged kubeconfig settings
+✔️ `kubectl config current-context` - Show current context
+✔️ `kubectl version` - Show client and server versions
+
+
+
+FOR DOCKER
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+docker logs <container_name_or_id> | grep "specific_word" ---> (to search for a specific word in Docker logs)
+docker logs my-container | grep "error" ---> (to search for the word "error" in logs)
+docker logs my-container | grep -i "error" ---> (to search for the word "error" case-insensitively in logs)
+docker logs --tail n <container_name_or_id> | grep "specific_word" ---> (to search for a specific word in the last n lines of logs)
+docker logs -f <container_name_or_id> | grep "specific_word" ---> (to follow logs in real-time while searching for a specific word)
+docker logs <container_name_or_id> | grep "Starting docx_generator function" ---> (to search for the phrase "Starting docx_generator function")
+docker logs my-container | grep -i "Starting docx_generator function" ---> (to search for the phrase "Starting docx_generator function" case-insensitively)
+docker run -it ubuntu /bin/bash ---> (to run an Ubuntu container interactively with a shell)
+docker run -d my-image ---> (to run a container in detached mode)
+docker run -d -p 8080:80 nginx ---> (to run a container and expose port 80 in the container to port 8080 on the host)
+docker run --name my-container -d my-image ---> (to run a container with a custom name)
+docker run -v /path/on/host:/path/in/container my-image ---> (to run a container and mount a host directory)
+docker ps ---> (to list all running containers)
+docker exec -it <container_id> /bin/bash ---> (to access a running container with a bash shell)
+docker exec -it <container_id> /bin/sh ---> (to access a running container with a sh shell, if bash is unavailable)
+exit ---> (to exit from the container shell)
+
+
+FOR NGINX          [PATH : /etc/nginx/site-available/default or any thing]
+---------------------
+Nginx (pronounced "engine-ex") is a high-performance web server, reverse proxy server, and load balancer designed to handle a large number of concurrent connections with low resource consumption. It was created by Igor Sysoev and first released in 2004. Nginx has gained popularity for its speed, stability, rich feature set, and ability to scale easily.
+
+Key Features of Nginx
+Web Server: Nginx serves static content (like HTML, CSS, JavaScript, and images) quickly and efficiently.
+
+Reverse Proxy: It can act as a reverse proxy server, forwarding requests to one or more backend servers (like application servers), which helps in distributing the load and providing additional security.
+
+Load Balancer: Nginx can distribute incoming traffic across multiple backend servers to ensure no single server is overwhelmed, enhancing reliability and performance.
+
+SSL/TLS Support: It supports secure connections through SSL/TLS, allowing for encrypted data transmission.
+
+Caching: Nginx can cache content to reduce the load on backend servers and speed up response times for users.
+
+URL Rewriting: It allows for flexible URL manipulation and redirection, making it easier to manage URLs and improve SEO.
+
+Support for WebSockets: Nginx supports WebSocket connections, enabling real-time communication for applications.
+
+High Concurrency: It can handle thousands of concurrent connections due to its asynchronous architecture, which uses an event-driven approach rather than traditional threading.
+
+Configuration Flexibility: Nginx configuration is highly customizable, allowing for complex setups and optimizations.
+
+Modular Architecture: Nginx has a modular design, enabling users to extend its functionality with various modules.
+
+Use Cases
+Serving Static Files: Nginx is commonly used to serve static websites or static assets of dynamic web applications.
+Reverse Proxy for Application Servers: It can be placed in front of application servers (like Node.js, Python, etc.) to manage incoming requests.
+Load Balancing: Nginx can distribute incoming requests across multiple servers, improving fault tolerance and scalability.
+API Gateway: It can serve as an API gateway, providing a unified interface for accessing multiple services.
+Microservices Architecture: Nginx is often used in microservices architectures to manage service-to-service communication and expose APIs.
+
+Nginx Commands
+---------------------------
+1. Installation
+sudo apt update
+sudo apt install nginx
+OR
+sudo yum install epel-release
+sudo yum install nginx
+2. Starting and Stopping Nginx
+Start Nginx:
+sudo systemctl start nginx
+Stop Nginx:
+sudo systemctl stop nginx
+Restart Nginx:
+sudo systemctl restart nginx
+Reload Nginx (for configuration changes):
+sudo systemctl reload nginx
+3. Status and Configuration
+Check the status of Nginx:
+sudo systemctl status nginx
+Test Nginx configuration:
+sudo nginx -t
+4. Configuration Files
+Default configuration file location:
+/etc/nginx/nginx.conf
+Sites-available directory (Debian/Ubuntu):
+/etc/nginx/sites-available/
+Sites-enabled directory (Debian/Ubuntu):
+/etc/nginx/sites-enabled/
+5. Access Logs and Error Logs
+View access logs:
+tail -f /var/log/nginx/access.log
+View error logs:
+tail -f /var/log/nginx/error.log
+6. Reverse Proxy Configuration
+To set up Nginx as a reverse proxy, add a server block in the configuration file:
+
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://localhost:3000;  # Point to your application
+    }
+}
+7. SSL Configuration
+To configure SSL, you might need to install Certbot for obtaining SSL certificates and modify your Nginx configuration:
+
+server {
+    listen 80;
+    server_name your_domain.com;
+    return 301 https://$host$request_uri;  # Redirect HTTP to HTTPS
+}
+
+server {
+    listen 443 ssl;
+    server_name your_domain.com;
+
+    ssl_certificate /path/to/certificate.crt;
+    ssl_certificate_key /path/to/private.key;
+
+    location / {
+        proxy_pass http://localhost:3000;
+    }
+}

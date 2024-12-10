@@ -1,0 +1,31 @@
+Docker volumes are primarily used to persist data created by Docker containers, allowing data to be retained even when containers are stopped or recreated. They are useful for sharing data between containers, accessing configuration files, or storing application data that needs to be consistent across container restarts.
+
+In your case, it sounds like you are working with AWS credentials, specifically an AWS access key that has permissions for an S3 bucket. Here’s how Docker volumes fit into this setup:
+
+1. Persisting AWS Credentials: When you add your AWS credentials (like the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`) to your container, these credentials need to be accessible to the container's applications, such as an app that interacts with AWS services. Adding these credentials as part of a Docker volume allows them to be accessible by the container without hardcoding them into your image, which helps keep your image secure and makes it reusable.
+
+2. Configuring the Docker Volume in `docker-compose.yml`: By using volumes in your `docker-compose.yml` file, you can mount a local file (e.g., your AWS credentials) or a directory from your host machine into the container. This way, you don’t need to copy sensitive information directly into the container or the image itself.
+
+Here’s an example of how you could set this up in `docker-compose.yml`:
+
+```yaml
+version: '3.8'
+services:
+  my-service:
+    image: my-app-image
+    environment:
+      - AWS_PROFILE=default  # Or add other AWS-specific environment variables as needed
+    volumes:
+      - ~/.aws:/root/.aws:ro  # Mounts AWS credentials as read-only
+```
+
+In this example:
+- `~/.aws` on your host (which contains the `credentials` file) is mounted to `/root/.aws` in the container.
+- The `:ro` option mounts it as read-only for added security.
+
+3. Benefits of This Approach:
+   - Security: By mounting AWS credentials as a volume, they don’t need to be embedded in your codebase or Docker image, reducing the risk of accidental exposure.
+   - Portability: This allows you to use the same image in different environments without hardcoding environment-specific secrets or configurations.
+   - Simplicity: It’s a clean way to make credentials or other config files available without needing to rebuild the Docker image every time they change.
+
+This method also lets you separate sensitive data from your code and infrastructure, while making it accessible to any containers needing AWS permissions.
