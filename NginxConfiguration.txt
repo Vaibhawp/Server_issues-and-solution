@@ -1,0 +1,85 @@
+Case 1: When we are accessing the application through the load balancer:
+xyz.conf file
+----------------
+server {
+        listen 80;
+        server_name _;
+        location / {
+                proxy_pass http://localhost:3000;
+                proxy_set_header Host $host;
+     # WebSocket support
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+        }
+
+
+        location /api {
+                proxy_pass http://localhost:8000;
+                proxy_set_header Host $host;
+        }
+location /models/proxy {
+                    rewrite ^/models/proxy/?(.*)$ /$1 break;
+                        proxy_pass http://localhost:4000;
+                            proxy_set_header Host $host;
+                    }
+}
+
+Case 2: When we are accessing the appliaction through the DNS and the DNS is attached to the load balancer:
+-------------------------------------------------------------------------------------------------------------------------------------------------
+a. Don't change anything in xyz.conf file only change the docker-compose.yml file for the frontend and the backend url
+b.Enable the port https on load balancer and listener 443--->80
+Keep all the things as above
+
+
+case3:When we are accessing the appliaction through the DNS and the DNS is attached to the certbot
+--------------------------------------------------------------------------------------------------------------------------------------------------
+A.No use of load balancer just configure the nginx and make the xyz.conf files to DNS.conf file
+B.Run the commands
+sudo apt update
+sudo apt upgrade -y
+sudo apt install certbot python3-certbot-nginx -y
+sudo certbot --nginx -d your-domain.com 
+
+DNS.conf
+--------------
+server {
+    server_name DNS ;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    location /api {
+                proxy_pass http://localhost:8000;
+                proxy_set_header Host $host;
+        }
+
+        location /models/proxy {
+                    rewrite ^/models/proxy/?(.*)$ /$1 break;
+                        proxy_pass http://localhost:4000;
+                            proxy_set_header Host $host;
+                    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/DNS/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/DNS/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = DNS) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name DNS ;
+    return 404; # managed by Certbot
+
+
+}
