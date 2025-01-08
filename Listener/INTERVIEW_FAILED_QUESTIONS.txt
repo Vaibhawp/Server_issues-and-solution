@@ -1,0 +1,55 @@
+Here are the commands for each of the tasks:
+
+Count Total Number of Running Processes:
+
+
+
+ps aux --no-headers | wc -l
+Check Free RAM:
+
+
+
+free -h
+Check Free Memory:
+
+
+free -h
+List Running Processes:
+
+
+
+ps aux
+Why We Use top, htop, and ps:
+top:
+
+Why Use It: top is a command-line utility that provides a dynamic, real-time view of a system's resource usage, including CPU, memory, and processes. It displays processes in order of their CPU usage and updates continuously.
+Use Case: It’s useful when you need to monitor system resources in real time, identify resource hogs, or troubleshoot performance issues.
+Command:
+
+
+top
+htop:
+
+Why Use It: htop is an enhanced version of top. It provides a more user-friendly, interactive interface with color coding, tree view for processes, and easier navigation. It also allows for sorting and filtering processes.
+Use Case: It’s ideal for users who prefer a more visual and interactive tool for monitoring system resources and managing processes.
+Command:
+
+
+htop
+ps:
+
+Why Use It: ps (process status) is used to display static information about processes. Unlike top or htop, it doesn’t update dynamically. You can customize the output using various flags.
+Use Case: It's used when you want to capture a snapshot of the current processes or when you need more specific process information.
+Command:
+
+
+ps aux
+Summary:
+top: Provides dynamic, real-time process monitoring.
+htop: A more user-friendly, interactive version of top with additional features.
+ps: Provides a static snapshot of current processes, useful for custom queries.
+
+
+
+
+

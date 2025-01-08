@@ -1,0 +1,37 @@
+Public and private keys are essential components of the SSH (Secure Shell) protocol used for secure communication between systems, such as logging into an EC2 instance on AWS. Here's a step-by-step flow to understand how the keys work on an EC2 server:
+
+1. Key Pair Creation
+Generate Key Pair: When you create an EC2 instance, AWS allows you to generate or provide an SSH key pair. This consists of two keys:
+Public Key: This key is shared and is stored on the EC2 server.
+Private Key: This key is kept on the client machine (local machine) and must be kept secret.
+2. Uploading the Public Key
+During the EC2 instance creation, AWS uses the public key to configure the EC2 instance. The public key is added to the ~/.ssh/authorized_keys file of the ec2-user (or the default user of the EC2 instance).
+This allows the server to recognize and authenticate incoming connections from clients that possess the corresponding private key.
+3. Private Key on the Client Side
+The private key remains securely stored on your local machine (client). It should be protected with strict permissions and not shared.
+When you attempt to SSH into the EC2 instance, the SSH client uses the private key to prove your identity to the server.
+4. SSH Connection Attempt
+You initiate an SSH connection from the local machine to the EC2 instance using the ssh command (e.g., ssh -i /path/to/private-key.pem ec2-user@ec2-ip-address).
+The SSH client attempts to connect to the EC2 instance using the private key and the username (e.g., ec2-user).
+5. Public Key Authentication
+Once the SSH connection request is received, the EC2 instance uses the public key (from ~/.ssh/authorized_keys) to verify the authenticity of the connection.
+The server sends a challenge (usually a random number or nonce) to the client.
+The client uses its private key to sign this challenge. The signature is then sent back to the server.
+6. Server Validation
+The server checks the signed challenge using the stored public key. If the signature matches, it proves that the client holds the correct private key.
+If the validation is successful, the server allows the connection to proceed.
+7. Secure Communication Established
+Once authenticated, the SSH session is established. Communication between the client and the server is encrypted using symmetric encryption, with keys exchanged using a secure handshake mechanism.
+The client can now securely execute commands on the EC2 instance or transfer files.
+Key Points:
+Public Key: Stored on the EC2 instance to allow authentication.
+Private Key: Stored on the local machine, used to sign authentication challenges.
+One-way Authentication: Only the client with the private key can authenticate, and the server uses the public key to verify the identity.
+Flow Recap:
+Generate a key pair (public and private).
+Store the public key on the EC2 instance.
+Store the private key on your local machine.
+SSH into EC2 using the private key.
+EC2 authenticates using the public key stored on the instance.
+Once authenticated, the SSH connection is established securely.
+This mechanism ensures that only users with the correct private key can access the EC2 instance, providing secure, password-less authentication.

@@ -1,0 +1,61 @@
+
+ DevOps Tools and Services  
+
+1. CI/CD Tools  
+- 8080 - Jenkins: CI/CD pipeline management interface.  
+- 50000 - Jenkins Agent: Master-Agent communication.  
+
+2. Monitoring and Visualization  
+- 3000 - Grafana: Metrics and dashboard visualization.  
+- 9090 - Prometheus: Monitoring and alerting system.  
+- 5601 - Kibana: Elasticsearch query and visualization.  
+
+3. Search and Storage  
+- 9200/9300 - Elasticsearch: REST API and node communication.  
+- 8200 - HashiCorp Vault: Secrets management.  
+- 6379 - Redis: In-memory data store.  
+
+4. Version Control  
+- 9418 - Git: Repository cloning and pushing.  
+
+
+
+ Cloud Services (AWS, Azure, GCP)  
+
+1. Networking  
+- 80/443 - HTTP/HTTPS: Web traffic and secure APIs.  
+- 22 - SSH: Secure server login.  
+- 3389 - RDP: Windows Remote Desktop.  
+- 53 - DNS: Domain name resolution.  
+
+2. Databases  
+- 3306/5432 - MySQL / PostgreSQL: Managed databases.  
+
+3. Kubernetes  
+- 6443 - Kubernetes API Server: Cluster management.  
+- 10250/10255 - Kubernetes: API communication and monitoring.  
+
+
+
+ Infrastructure Management  
+- 8500 - Terraform Enterprise: HTTP API for infrastructure provisioning.  
+- 8888 - Ansible AWX: Automation web interface.  
+
+
+
+ Monitoring & Logging  
+- 2003 - Graphite: Metrics storage.  
+- 25826 - Collectd: Metrics collection.  
+- 1514 - Syslog: Log collection.  
+
+
+
+ Containerization & Orchestration  
+- 2375/2376 - Docker: Non-secure / secure Docker API.  
+- 6443 - Kubernetes: API server communication.  
+- 10250 - Kubernetes Kubelet API: Node-level management and monitoring.  
+
+
+
+ Additional Tools  
+- 9000 - SonarQube: Code quality and security analysis.  

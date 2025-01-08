@@ -1,0 +1,77 @@
+CDEESU
+Create a k8's clusture
+Deploy the application
+Explore the application
+Expose the appliaction publicly
+Scale up your application
+Upgrade the application
+---------------------------------------------
+SUPPORT D/F INFRA
+-------------------------------
+1.orchestra(master[k8's]+player[container])
+2.server[ container,node(minions)]==>container are managed by nodes(minions) and these minions are managed by k8's
+3.The k8's amange these through the API server and kubelet(i.e on server or worker node)
+-----------------------------------------------------------------------------------------------------------------------
+Important components of  k8's
+-----------------------------------------in master node
+1.API SERVER
+2.Schedular
+3.ETCD
+4.Control Manager
+-------------------------------------------in worker node
+5.Kubelet
+6.Kube proxy
+7.Container runtime
+
+===================================================
+sample yaml config file ..
+api version: v1
+kind: Pod
+metadata:
+       name: my-pod
+spec:
+      containers:
+      - name: my container
+         image: nginx
+         ports:
+           -ContainerPort: 80
+----------------------------------------------------------------
+we con do the things with k8's
+1.container orchestration
+2.scalability
+3.High Availability
+4.Rollouts and rollback
+5.Load balancing
+-------------------------------------------------------------------
+minikube start/delete/status/dashboard
+kubectl create deployment my-app --image=link
+kubectl get deployments
+kubectl get pods
+kubectl delete deployment my-app
+kubectl expose deployment my-app --
+type=LoadBalancer --port=80
+minikube service my-app
+kubectl get services
+
+multi container application 
+-------------------------------------
+
+Here’s the properly structured syntax based on the provided commands:
+
+1. Pull the Docker Image
+docker pull philippaul/node-mongo-db:01
+2. Run MongoDB
+docker run -d -p 27017:27017 --network my-net --name mongo mongo
+3. Run the Node App
+docker run --network my-net -p 3000:3000 --name myapp philippaul/node-mongo-db:01
+Pulls the specified image from Docker Hub.
+Runs a MongoDB container (mongo) in detached mode with port 27017 exposed.
+Runs a Node.js app container (myapp) that communicates with MongoDB on the same Docker network (my-net).
+------------------------------------------
+There are two ways to run application with
+multiple containers -
+Run multiple containers in same pod
+Run each container in separate pod
+
+===========================================================================================================
+

@@ -1,0 +1,135 @@
+Self Join
+-----------------
+Question: Write a query to find employees in the same department by performing a self-join on the Employees table.
+
+
+SELECT E1.FirstName AS Employee1, E2.FirstName AS Employee2, E1.DepartmentID
+FROM Employees E1
+JOIN Employees E2 ON E1.DepartmentID = E2.DepartmentID
+WHERE E1.EmployeeID != E2.EmployeeID;
+
+Union
+--------------
+Question: Write a query using UNION to fetch all FirstName values from the Employees table and DepartmentName values from the Department table into a single column.
+
+
+SELECT FirstName FROM Employees
+UNION
+SELECT DepartmentName FROM Department;
+
+Group By
+----------------
+Question: Write a query to find the total salary for each department, grouping by DepartmentID.
+
+
+SELECT DepartmentID, SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY DepartmentID;
+
+Having
+------------------
+Question: Modify the query from the previous question to only include departments where the total salary exceeds 100,000.
+
+
+SELECT DepartmentID, SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY DepartmentID
+HAVING SUM(Salary) > 100000;
+
+Exists
+--------------------
+Question: Write a query to find the names of employees who belong to a department that exists in the Department table.
+
+
+SELECT FirstName, LastName
+FROM Employees E
+WHERE EXISTS (
+    SELECT 1
+    FROM Department D
+    WHERE D.DepartmentID = E.DepartmentID
+);
+
+Any
+-------------------------
+Question: Write a query to find employees whose salary is higher than any salary in the Employees table.
+
+
+SELECT FirstName, LastName, Salary
+FROM Employees
+WHERE Salary > ANY (SELECT Salary FROM Employees);
+
+All
+-----------
+Question: Write a query to find employees whose salary is higher than all the other employees' salaries.
+
+
+SELECT FirstName, LastName, Salary
+FROM Employees
+WHERE Salary > ALL (SELECT Salary FROM Employees);
+
+Insert Into Select
+-----------------------------
+Question: Write a query to insert all employees from the Employees table who belong to the IT department into a new table called IT_Employees.
+
+
+-- First, create the IT_Employees table
+CREATE TABLE IT_Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    Salary DECIMAL(10, 2),
+    HireDate DATE
+);
+
+-- Insert employees from the IT department into IT_Employees
+INSERT INTO IT_Employees (EmployeeID, FirstName, LastName, DepartmentID, Salary, HireDate)
+SELECT EmployeeID, FirstName, LastName, DepartmentID, Salary, HireDate
+FROM Employees
+WHERE DepartmentID = 3;  -- IT department ID
+
+Case
+--------------------
+Question: Write a query to create a new column that shows "High Salary" if the salary is greater than 70,000, "Average Salary" if between 50,000 and 70,000, and "Low Salary" otherwise.
+
+
+SELECT FirstName, LastName, Salary,
+       CASE
+           WHEN Salary > 70000 THEN 'High Salary'
+           WHEN Salary BETWEEN 50000 AND 70000 THEN 'Average Salary'
+           ELSE 'Low Salary'
+       END AS SalaryCategory
+FROM Employees;
+
+
+Null Function
+-------------------------------
+Question: Write a query to replace NULL values in the DepartmentID or Salary columns with default values using the COALESCE function.
+
+
+SELECT FirstName, LastName, 
+       COALESCE(DepartmentID, 0) AS DepartmentID,  -- Default 0 if NULL
+       COALESCE(Salary, 50000) AS Salary            -- Default 50000 if NULL
+FROM Employees;
+Arithmetic Operators
+Question: Write a query to increase the salary of all employees by 10% and display the updated salary.
+
+
+SELECT FirstName, LastName, Salary, 
+       Salary * 1.10 AS UpdatedSalary
+FROM Employees;
+Comparison Operator
+Question: Write a query to find all employees who were hired after January 1, 2020.
+
+
+SELECT FirstName, LastName, HireDate
+FROM Employees
+WHERE HireDate > '2020-01-01';
+Logical Operator
+Question: Write a query to find all employees whose Salary is greater than 50,000 and belong to the HR or Finance departments.
+
+
+SELECT FirstName, LastName, Salary, DepartmentID
+FROM Employees
+WHERE Salary > 50000
+AND (DepartmentID = 1 OR DepartmentID = 2);  -- HR = 1, Finance = 2

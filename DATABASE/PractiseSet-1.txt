@@ -1,0 +1,233 @@
+-- Drop the existing tables if needed (uncomment if you want to drop them)
+-- DROP TABLE Employees;
+-- DROP TABLE Department;
+
+-- Switch to the desired database
+USE echo_customer;
+
+-- Create the Employees table with columns for EmployeeID, FirstName, LastName, DepartmentID, Salary, and HireDate
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,      -- Primary key for EmployeeID
+    FirstName VARCHAR(50),           -- First name of the employee
+    LastName VARCHAR(50),            -- Last name of the employee
+    DepartmentID INT,                -- Department ID associated with the employee
+    Salary DECIMAL(10, 2),           -- Salary of the employee (precision, scale)
+    HireDate DATE                    -- Date of hire (yyyy-mm-dd)
+);
+
+-- Create the Department table with columns for DepartmentID and DepartmentName
+CREATE TABLE Department (
+    DepartmentID INT PRIMARY KEY,    -- Primary key for DepartmentID
+    DepartmentName VARCHAR(100)      -- Name of the department
+);
+
+-- Insert data into the Department table
+INSERT INTO Department (DepartmentID, DepartmentName)
+VALUES
+    (1, 'HR'),                      -- HR Department
+    (2, 'Finance'),                 -- Finance Department
+    (3, 'IT'),                      -- IT Department
+    (4, 'Marketing');               -- Marketing Department
+
+-- Insert data into the Employees table
+INSERT INTO Employees (
+    EmployeeID,
+    FirstName,
+    LastName,
+    DepartmentID,
+    Salary,
+    HireDate
+)
+VALUES
+    (101, 'John', 'Doe', 1, 60000.00, '2018-01-15'),  -- Employee 101 in HR with a salary of 60,000
+    (102, 'Jane', 'Smith', 2, 75000.00, '2019-03-22'), -- Employee 102 in Finance with a salary of 75,000
+    (103, 'Michael', 'Brown', 3, NULL, '2020-07-10'),  -- Employee 103 in IT, salary not specified
+    (104, 'Emily', 'Davis', 4, 50000.00, '2021-05-18'), -- Employee 104 in Marketing with a salary of 50,000
+    (105, 'Chris', 'Wilson', NULL, 45000.00, '2022-11-30'); -- Employee 105 without department, salary 45,000
+
+-- Show all tables in the current database
+SHOW TABLES;
+
+-- Select all records from the Employees table
+SELECT * FROM Employees;
+
+-- Select all records from the Department table
+SELECT * FROM Department;
+
+-- Select distinct DepartmentID from Employees (show unique department IDs)
+SELECT DISTINCT DepartmentID FROM Employees;
+
+-- Select all employees where Salary is greater than 60000
+SELECT * FROM Employees WHERE Salary > 60000;
+
+-- Select employees hired before January 1, 2020
+SELECT * FROM Employees WHERE HireDate < '2020-01-01';
+
+-- Add a new column 'IsActive' to the Employees table
+ALTER TABLE Employees ADD IsActive BOOLEAN;
+
+-- Update the 'IsActive' column based on the HireDate
+UPDATE Employees
+SET IsActive = CASE
+    WHEN HireDate > '2021-01-01' THEN TRUE    -- Mark as active if hired after 2021
+    ELSE FALSE                                -- Otherwise mark as inactive
+END;
+
+-- Select all employees ordered by salary in descending order
+SELECT * FROM Employees ORDER BY Salary DESC;
+
+-- Select all employees ordered by HireDate in ascending order
+SELECT * FROM Employees ORDER BY HireDate ASC;
+
+==========================================================================================================================================================================================
+
+-- Insert a new employee without specifying the HireDate
+INSERT INTO Employees (
+    EmployeeID,
+    FirstName,
+    LastName,
+    DepartmentID
+)
+VALUES
+    (106, 'Eve', 'Williams', 1);  -- Insert employee 106 in HR, without HireDate
+
+-- Select all records from Employees table to verify the insertion
+SELECT * FROM Employees;
+
+-- Update the HireDate for the newly inserted employee
+UPDATE Employees
+SET HireDate = '2023-07-12'
+WHERE EmployeeID = 106;
+
+-- Select all records from Employees table to verify the update
+SELECT * FROM Employees;
+
+-- Update the Salary for employees with NULL value in DepartmentID
+SET SQL_SAFE_UPDATES = 0;   -- Disable safe updates for the following query
+
+UPDATE Employees
+SET Salary = 0.1 * Salary   -- Update salary to 10% of the current salary for employees in Department 1
+WHERE DepartmentID = 1;
+
+-- Select the top 3 employees ordered by salary in ascending order
+SELECT * FROM Employees
+ORDER BY Salary ASC
+LIMIT 3;
+we can also use OFFSET
+-- Select the minimum salary from Employees
+SELECT MIN(Salary) FROM Employees;
+
+-- Select the maximum salary from Employees
+SELECT MAX(Salary) FROM Employees;
+
+-- Select the earliest and most recent HireDate from Employees
+SELECT 
+    MIN(HireDate) AS EarliestHireDate, 
+    MAX(HireDate) AS MostRecentHireDate
+FROM Employees;
+
+-- Count the total number of employees
+SELECT COUNT(*) AS TotalEmployees FROM Employees;
+
+-- Calculate the average salary of employees
+SELECT AVG(Salary) AS AverageSalary FROM Employees;
+
+-- Calculate the total salary of all employees
+SELECT SUM(Salary) AS Totalsalary FROM Employees;
+
+-- Select employees whose first name contains the letter 'n'
+SELECT * FROM Employees
+WHERE FirstName LIKE '%n';
+
+-- Select employees working in IT (Department 3) or Finance (Department 2)
+SELECT * FROM Employees
+WHERE DepartmentID IN (3, 2);  
+
+-- Select employees hired between January 1, 2019 and December 31, 2021
+SELECT * FROM Employees
+WHERE HireDate BETWEEN '2019-01-01' AND '2021-12-31';
+
+-- Select FirstName and Salary of employees, renaming columns as EmployeeName and MonthlySalary
+SELECT 
+    FirstName AS EmployeeName,
+    Salary AS MonthlySalary
+FROM Employees;
+=====================================================================================================================================================================
+-- Select employee information along with their department name using JOIN
+SELECT 
+    E.FirstName AS EmployeeName,
+    E.Salary AS MonthlySalary,
+    D.DepartmentName
+FROM Employees AS E
+JOIN Department AS D ON E.DepartmentID = D.DepartmentID;
+
+-- Select all records from Employees and Department tables
+SELECT * FROM Employees;
+SELECT * FROM Department;
+
+-- Select employee details along with department name using INNER JOIN
+SELECT 
+    E.EmployeeID, 
+    E.FirstName, 
+    E.LastName, 
+    D.DepartmentName
+FROM Employees AS E
+INNER JOIN Department AS D ON E.DepartmentID = D.DepartmentID;
+
+-- Select employee details with department name using LEFT JOIN (all employees, including those without department)
+SELECT 
+    E.EmployeeID, 
+    E.FirstName, 
+    E.LastName, 
+    D.DepartmentName
+FROM Employees AS E
+LEFT JOIN Department AS D ON E.DepartmentID = D.DepartmentID;
+
+-- Select department details with employee information using RIGHT JOIN (all departments, including those without employees)
+SELECT 
+    D.DepartmentID, 
+    D.DepartmentName, 
+    E.EmployeeID, 
+    E.FirstName, 
+    E.LastName
+FROM Department AS D
+RIGHT JOIN Employees AS E ON D.DepartmentID = E.DepartmentID;
+
+-- Select all combinations of employees and departments using CROSS JOIN
+SELECT 
+    E.EmployeeID, 
+    E.FirstName, 
+    E.LastName, 
+    D.DepartmentName
+FROM Employees AS E
+CROSS JOIN Department AS D;
+
+-- Select department name and the highest paid employee in each department using a subquery
+SELECT 
+    D.DepartmentName, 
+    E.FirstName, 
+    E.LastName, 
+    E.Salary AS HighestSalary
+FROM Employees AS E
+INNER JOIN Department AS D ON E.DepartmentID = D.DepartmentID
+INNER JOIN (
+    SELECT DepartmentID, MAX(Salary) AS MaxSalary
+    FROM Employees
+    GROUP BY DepartmentID
+) AS MaxSalaries ON E.DepartmentID = MaxSalaries.DepartmentID AND E.Salary = MaxSalaries.MaxSalary;
+
+-- Select department name along with total and average salary of employees in each department
+SELECT 
+    D.DepartmentName,
+    SUM(E.Salary) AS TotalSalary,
+    AVG(E.Salary) AS AverageSalary
+FROM Employees AS E
+INNER JOIN Department AS D ON E.DepartmentID = D.DepartmentID
+GROUP BY D.DepartmentName;
+
+-- Select departments with no employees (if any) using LEFT JOIN and NULL check
+SELECT 
+    D.DepartmentName
+FROM Department AS D
+LEFT JOIN Employees AS E ON D.DepartmentID = E.DepartmentID
+WHERE E.EmployeeID IS NULL;

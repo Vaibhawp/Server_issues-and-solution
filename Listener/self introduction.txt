@@ -1,0 +1,6 @@
+
+Hello, I’m Vaibhaw Pandey, a DevOps Engineer currently working at Mobifly, where I focus on creating and optimizing CI/CD pipelines, automating deployment processes, and enhancing operational efficiency. I graduated with a B.Tech in Computer Science and Engineering with a specialization in Data Science from ABES Institute of Technology in 2024.
+
+At Mobifly, I’ve gained extensive experience working with AWS CodePipeline and CodeBuild, automating Docker image management for Amazon ECR, and integrating SonarQube to improve code quality and maintainability. My expertise includes containerization with Docker and infrastructure automation using Terraform.
+
+I’m also skilled in managing AWS resources, including EC2, VPCs, and RDS, and have contributed to various impactful projects, such as Terraform-based infrastructure deployment. My programming toolkit includes Python, Bash scripting, and ReactJS, allowing me to bridge the gap between development and operations seamlessly.

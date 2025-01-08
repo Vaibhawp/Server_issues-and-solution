@@ -1,0 +1,108 @@
+ Most Asked CI/CD Interview Questions for DevOps and Developers  
+
+ General CI/CD Questions  
+1. Deployment Script Failure:  
+   - How would you handle a situation where a deployment script fails mid-way? What rollback mechanisms would you implement?  
+2. Deployment Strategies:  
+   - Explain the difference between a blue-green deployment and a canary deployment. When would you use each?  
+3. Challenges in CI/CD:  
+   - What are some common challenges in CI/CD, and how have you solved them in your projects?  
+4. Troubleshooting Pipelines:  
+   - Explain how you would troubleshoot a pipeline error in Jenkins related to dependency mismatches.  
+5. Security in CI/CD:  
+   - How would you implement security in a CI/CD pipeline to ensure compliance and prevent vulnerabilities?  
+6. Jenkins vs. GitHub Actions:  
+   - What are the differences between Jenkins and GitHub Actions, and when would you choose one over the other?  
+7. Ansible in CI/CD:  
+   - How would you use Ansible in a CI/CD pipeline to deploy applications to multiple environments?  
+8. Ansible Playbooks and Inventory:  
+   - Explain the role of playbooks and inventory files in Ansible for deployment automation.  
+9. Testing in CI/CD:  
+   - How would you handle testing in a CI/CD pipeline to ensure changes don't affect production?  
+10. Continuous Deployment in Cloud:  
+   - What are the considerations for setting up a continuous deployment process in a cloud environment like AWS or Azure?  
+
+
+
+ Scenario-Based Questions  
+11. High CPU Utilization:  
+    - If CPU utilization on a server is consistently above 90%, what steps would you take to investigate and address the issue?  
+12. HPC Migration to Cloud:  
+    - How would you ensure a seamless transition of high-performance computing (HPC) infrastructure to the cloud while maintaining availability and performance?  
+13. Database Latency:  
+    - Your team is experiencing increased latency in database queries due to high traffic. What steps would you take to diagnose and reduce this latency?  
+14. Cloud Cost Management:  
+    - Suppose there's a sudden surge in cloud costs. How would you go about identifying the cause and reducing unnecessary expenses?  
+15. Cloud Cost Reduction:  
+    - Tell me how you previously reduced cloud expenditure by 20%.  
+16. Logging and Monitoring:  
+    - You've been asked to design a logging and monitoring solution for a new application. What factors would you consider, and how would you prioritize them?  
+17. SSL/TLS Certificates:  
+    - Imagine you are responsible for managing SSL/TLS certificates across multiple environments. How would you ensure they're up to date and compliant with security standards?  
+
+
+
+ AWS DevOps Engineer Interview Questions  
+
+1. Git Conflicts:  
+   - How to overcome conflicts in Git?  
+2. Recover Deleted Files in Git:  
+   - If a file is deleted in Git, how do you get it back?  
+3. Git Merge and Stash:  
+   - What are Git merge and Git stash?  
+4. Root Volume Scaling:  
+   - Can you increase the size of the root volume without shutting down the instance?  
+5. Classic vs. Application ELB:  
+   - Difference between Classic ELB and Application ELB?  
+6. Monitoring with CloudWatch:  
+   - Are you only using CloudWatch for monitoring?  
+7. VPC Peering:  
+   - How to configure VPC peering?  
+8. Docker File Example:  
+   - Can you write a Dockerfile for deploying a static webserver in a Linux environment?  
+9. VM without EC2:  
+   - Is it possible to run any VM in AWS without creating an EC2 instance?  
+10. Terraform Modules:  
+    - What are Terraform modules? Have you used any modules in your project?  
+11. Kubernetes Services:  
+    - What are services in Kubernetes?  
+12. Terraform Operations:  
+    - What are the key operations in Terraform?  
+13. Docker Overlay Directory:  
+    - What happens when you delete `/var/lib/docker/overlay`?  
+14. Kubernetes Security:  
+    - Explain scenarios to implement security in Kubernetes.  
+15. EKS Auto-Scaling:  
+    - Your EKS application is experiencing higher traffic. How would you automatically scale the Pods?  
+16. Continuous Delivery & Deployment:  
+    - What is Continuous Delivery and Continuous Deployment?  
+17. EKS Pod Monitoring and Alerts:  
+    - How would you set up alerts when CPU usage of any Pod exceeds 80% for more than 5 minutes?  
+18. Jira in DevOps:  
+    - Why do we use Jira as DevOps engineers?  
+
+
+
+ DNS Resolution in Cloud and DevOps  
+
+ Scenario:  
+You are working for a company with multiple VPCs in AWS connected to an on-premises data center using AWS Direct Connect and Amazon VPN. The company's internal applications require DNS resolution for AWS-hosted services and on-premises resources.  
+
+ Challenges:  
+- Ensure consistent and accurate DNS resolution across AWS and on-premises environments.  
+- Avoid exposing internal DNS records to the public internet.  
+- Route DNS queries securely between on-premises and AWS VPCs.  
+
+ Solution:  
+
+Use Route 53 Resolver:  
+1. Set Up Endpoints:  
+   - Inbound Endpoint: Allows DNS queries from on-premises servers to resolve AWS resources.  
+   - Outbound Endpoint: Forwards DNS queries from AWS VPCs to on-premises DNS servers.  
+2. Configure DNS Forwarding Rules:  
+   - On-Premises to AWS: Forward queries for AWS-hosted domains to the Route 53 inbound endpoint.  
+   - AWS to On-Premises: Forward queries for on-premises domains via the Route 53 outbound endpoint.  
+3. Associate DNS Rules with VPCs:  
+   - Link DNS forwarding rules to VPCs using Route 53 Resolver rule associations.  
+
+This configuration ensures secure and seamless DNS resolution across environments. Depending on scaling needs and multi-account architectures, more advanced setups can be considered.  
