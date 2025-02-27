@@ -1,0 +1,240 @@
+IAM
+1. What is the difference between an IAM Role and an IAM Policy Document?
+IAM Role: A set of permissions that define what actions are allowed for the principal assuming the role.
+IAM Policy Document: A JSON document that specifies permissions (e.g., s3:PutObject on a specific S3 bucket). Policies can be attached to roles, users, or groups to define permissions.
+
+2. What are inline policies and managed policies?
+Inline Policies: Policies directly embedded within a specific user, group, or role. They are tightly coupled and cannot be reused.
+Managed Policies: Reusable policies that can be attached to multiple users, groups, or roles. AWS offers AWS Managed Policies, and you can create Customer Managed Policies.
+
+Route 53
+How can we add a load balancer to Route 53?
+To add a load balancer to Route 53:
+
+Create an Application Load Balancer (ALB) or Network Load Balancer (NLB) in your VPC.
+Go to Route 53 and create a new Record Set.
+Set the record type to A or CNAME (depending on your use case).
+In the record value, enter the DNS name of the load balancer (found in the load balancer's description).
+Save the record.
+DNS Records
+What are A records and CNAME records?
+A Record (Address Record): Maps a domain name to an IP address.
+CNAME Record (Canonical Name Record): Maps a domain name to another domain name (an alias).
+
+Load Balancer
+What is the use of a target group in a load balancer?
+A target group is a group of resources (e.g., EC2 instances or IP addresses) that the load balancer forwards traffic to. Each target group can have its own health check settings and routing rules.
+
+If a target group is unhealthy, what might be the reasons?
+Possible reasons for a target group being unhealthy include:
+
+Incorrect health check configuration: The health check might be looking for an incorrect URL or port.
+Instance failure: The target instance might not be responsive or down.
+Security group issues: The target instances may not have the correct security group allowing health check traffic.
+Instance performance issues: Overloaded or under-resourced instances might fail health checks.
+Jenkins
+Can you write a basic Jenkins pipeline?
+Declarative Pipeline:
+groovy
+Copy code
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello, Jenkins!'
+            }
+        }
+    }
+}
+Scripted Pipeline:
+groovy
+Copy code
+node {
+    stage('Hello') {
+        echo 'Hello, Jenkins!'
+    }
+}
+Kubernetes (K8s)
+K8s architecture: Kubernetes uses a master-worker architecture. The master node manages the cluster, while worker nodes run application workloads. Components include API Server, etcd, Controller Manager, Scheduler, and kubelet.
+Deployment vs StatefulSet vs ReplicaSet:
+Deployment: Manages stateless applications.
+StatefulSet: Manages stateful applications with unique identities for pods.
+ReplicaSet: Ensures a specified number of pod replicas are running.
+What is a ConfigMap?: A ConfigMap stores configuration data as key-value pairs, which can be used in pods.
+Role of etcd in Kubernetes: etcd is a distributed key-value store used as Kubernetes' backing store for all cluster data.
+How do rolling updates work in a deployment?: Rolling updates replace pods incrementally, ensuring minimal downtime by updating a few pods at a time.
+Docker
+Explain the structure of a Dockerfile: A Dockerfile consists of instructions to build a Docker image. Common instructions include FROM, RUN, COPY, ADD, CMD, and EXPOSE.
+How do you build a Docker image using a Dockerfile?: Use docker build -t <image-name> ..
+What is the difference between COPY and ADD commands?:
+COPY: Copies files/directories from the host to the container.
+ADD: Similar to COPY but can also retrieve remote files or unpack archives.
+Terraform
+What does terraform init do?: Initializes a Terraform project, downloads provider plugins, and sets up the backend.
+How to auto-approve Terraform changes?: Use the -auto-approve flag with terraform apply or terraform destroy.
+Count vs foreach: count creates multiple instances of a resource, while foreach creates multiple instances with dynamic indexing.
+How to import an existing resource to Terraform?: Use terraform import <resource_type.resource_name> <resource_id>.
+What is a data block in Terraform?: A data block retrieves information about existing resources.
+What are provisioners in Terraform?: Provisioners execute scripts or commands on resources during creation or destruction.
+What is a remote backend?: A remote backend stores the Terraform state file in a centralized location like S3 or Terraform Cloud.
+Linux
+How to check the list of installed packages?: Use dpkg --list or yum list installed.
+Command to check kernel version: uname -r.
+How to create a new user and add it as sudo?:
+sudo adduser <username>
+sudo usermod -aG sudo <username>
+Command to check if a process is running and stop it:
+Check: ps aux | grep <process_name>.
+Stop: kill <process_id>.
+Command to list all files less than 5 MB: find . -size -5M.
+Hard link vs soft link: Hard links are direct references to the file's inode, while soft links are shortcuts (pointers).
+Commands to check disk space usage and free RAM:
+Disk space: df -h.
+RAM: free -h.
+Git
+What is Git? Why is it used?: Git is a version control system to track changes in code and collaborate on projects.
+Differences between Git and GitHub: Git is a tool, while GitHub is a cloud-based platform for hosting Git repositories.
+How do you initialize a Git repository?: Use git init.
+Difference between git pull and git fetch:
+git pull fetches changes and merges them into your branch.
+git fetch only downloads changes without merging.
+How to check the status of your repository?: Use git status.
+Difference between git add and git commit:
+git add: Stages changes for commit.
+git commit: Saves staged changes.
+What is a branch in Git? How do you create one?: A branch is an independent line of development. Create one using git branch <branch_name>.
+How to check commit history?: Use git log.
+What is the staging area in Git?: A place to prepare changes before committing them.
+How to delete a branch?: Use git branch -d <branch_name>.
+CI/CD
+Types of pipelines in Jenkins: Declarative and Scripted pipelines.
+Scripted vs Declarative pipeline: Declarative is simpler and more readable, while Scripted offers greater flexibility.
+Should we store artifacts in Artifactory or S3?: Artifactory is specialized for managing artifacts, while S3 is a general-purpose storage solution.
+How to upgrade plugins in Jenkins?: Use the Jenkins UI under "Manage Plugins".
+User management in Jenkins: Configure roles and permissions under "Manage Users".
+Concepts about GitLab runners: Runners execute CI/CD jobs defined in .gitlab-ci.yml.
+How to upgrade Jenkins?: Replace the Jenkins WAR file or use package managers (e.g., apt or yum).
+Ansible
+Loops in Ansible: Use the with_items or loop directives.
+Ansible Roles: Roles help organize playbooks into reusable components.
+Is Ansible idempotent?: Yes, Ansible ensures tasks achieve the desired state without unnecessary changes.
+Ansible script to install Nginx:
+yaml
+Copy code
+- name: Install Nginx
+  hosts: all
+  tasks:
+    - name: Install Nginx package
+      apt:
+        name: nginx
+        state: present
+Conditionals in Ansible: Use when to apply tasks conditionally.
+
+
+
+
+
+
+You said:
+add one more thing that what does the docker run command do
+ChatGPT said:
+ChatGPT
+Docker
+4. What does the docker run command do?
+The docker run command creates and starts a new container from a specified Docker image. It combines the functionality of docker create and docker start.
+
+Syntax:
+
+bash
+Copy code
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+Key Options:
+
+-d: Run the container in detached mode (in the background).
+-p: Map a port on the host to a port in the container (e.g., -p 8080:80).
+-v: Mount a volume or bind a directory to the container.
+--name: Assign a custom name to the container.
+-e: Set environment variables inside the container.
+Example:
+
+bash
+Copy code
+docker run -d -p 8080:80 --name my-container nginx
+This command runs an Nginx container in detached mode, maps port 80 inside the container to port 8080 on the host, and names the container "my-container".
+
+
+
+
+
+
+You said:
+from starting to end like i starts find image in cache
+ChatGPT said:
+ChatGPT
+The docker run command initiates a series of steps to create and start a container. Here's a breakdown of the entire process:
+
+What Happens When You Run docker run?
+1. Search for the Image Locally
+Docker first checks if the specified image exists in the local image cache.
+
+If found: Docker uses the cached image.
+If not found: Docker proceeds to pull the image from a Docker registry (e.g., Docker Hub).
+2. Pull the Image (if not found locally)
+If the image isn’t in the local cache, Docker connects to the registry to download the image layers.
+
+Layers are downloaded in chunks to optimize storage and reuse across images.
+Each layer is verified for integrity before being stored locally.
+3. Create a Container
+Docker creates a container from the specified image.
+
+The container is essentially a writable layer over the image, where changes (like files or configurations) will be stored during its lifetime.
+4. Assign a Unique Container ID
+Docker assigns a unique identifier (container ID) to the new container.
+
+This ID is used for managing the container later (e.g., stop, start, remove).
+5. Network Setup
+Docker sets up the network for the container:
+
+Assigns an IP address to the container.
+Connects it to the specified network or the default bridge network.
+6. Mount Volumes (if specified)
+If -v or --mount options are provided, Docker sets up the volume mappings between the host and the container.
+
+These volumes allow data to persist across container restarts.
+7. Set Environment Variables
+Docker applies environment variables specified with the -e option or those defined in the image.
+
+These can be used by applications running inside the container.
+8. Start the Container
+The container process is started, executing the default command specified in the image (CMD) or an overridden command provided as an argument in the docker run command.
+
+Foreground Mode (default): Output is displayed in the terminal.
+Detached Mode (-d): The container runs in the background.
+9. Monitor or Detach
+Depending on the options provided:
+
+Foreground Mode: You see the logs in real-time and can interact with the container if it's interactive.
+Detached Mode: The container runs independently in the background.
+Example Walkthrough
+Command:
+
+bash
+Copy code
+docker run -d -p 8080:80 --name my-nginx nginx
+Step-by-Step:
+
+Docker checks if the nginx image exists locally.
+If not found, it pulls the nginx image from Docker Hub.
+A container is created using the nginx image with the name my-nginx.
+Docker maps port 80 in the container to port 8080 on the host.
+The container starts in detached mode, running the Nginx service.
+Docker assigns an IP and sets up the network for the container.
+The container runs until explicitly stopped.
+This lifecycle ensures a seamless and efficient deployment of containers from images.
+
+
+
+
+
+

@@ -1,0 +1,222 @@
+Terraform Interview Questions and Answers
+1. What is Terraform, and how does it work?
+Answer:
+Terraform is an Infrastructure as Code (IaC) tool developed by HashiCorp that allows you to define and provision infrastructure using a declarative configuration language called HCL (HashiCorp Configuration Language).
+
+It works by:
+
+Writing infrastructure configurations in .tf files.
+Initializing Terraform using terraform init.
+Planning infrastructure changes using terraform plan.
+Applying changes using terraform apply.
+Managing the state in a file (terraform.tfstate) for tracking resources.
+2. What are Terraform providers, and how do they work?
+Answer:
+Terraform providers are plugins that allow Terraform to interact with cloud platforms (AWS, Azure, GCP) or on-premises infrastructure.
+
+Example of using an AWS provider:
+
+hcl
+Copy
+Edit
+provider "aws" {
+  region = "us-east-1"
+}
+Providers manage API calls to create, update, or delete resources.
+
+3. What is a Terraform state file (terraform.tfstate)?
+Answer:
+The state file (terraform.tfstate) keeps track of all the resources Terraform manages. It helps:
+
+Track the real-world infrastructure.
+Improve performance by avoiding redundant API calls.
+Enable collaboration when stored remotely (e.g., AWS S3, Terraform Cloud).
+4. What is the difference between terraform plan and terraform apply?
+Answer:
+
+Command	Purpose
+terraform plan	Shows what changes Terraform will make but does not apply them.
+terraform apply	Actually applies the changes and updates the infrastructure.
+5. How do you manage sensitive data in Terraform?
+Answer:
+Terraform provides multiple ways to manage sensitive data securely:
+
+Using terraform.tfvars (should be excluded from Git):
+hcl
+Copy
+Edit
+password = "mysecretpassword"
+Using Environment Variables:
+bash
+Copy
+Edit
+export TF_VAR_password="mysecretpassword"
+Using Terraform Vault or AWS Secrets Manager.
+Kubernetes (K8s) Interview Questions and Answers
+1. What is Kubernetes, and why is it used?
+Answer:
+Kubernetes (K8s) is an open-source container orchestration system developed by Google to automate deployment, scaling, and management of containerized applications.
+
+It is used for:
+
+Automatic scaling of applications.
+Self-healing (restarts failed containers).
+Load balancing and service discovery.
+Rolling updates and rollbacks.
+2. What is a Kubernetes Pod?
+Answer:
+A Pod is the smallest deployable unit in Kubernetes. It can contain one or more containers that share the same storage and network.
+
+Example of a Pod YAML definition:
+
+yaml
+Copy
+Edit
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+3. What is the difference between a Deployment and a StatefulSet?
+Feature	Deployment	StatefulSet
+Use Case	Stateless applications (e.g., web servers)	Stateful applications (e.g., databases)
+Pod Identity	Pods are interchangeable	Each Pod gets a unique identity
+Scaling	Easy to scale	More complex due to persistence
+Storage	Uses ephemeral storage	Uses Persistent Volume Claims (PVCs)
+4. What is a Kubernetes Service?
+Answer:
+A Service in Kubernetes allows communication between different components of an application inside the cluster.
+
+Types of Services:
+
+ClusterIP (default) – Internal communication.
+NodePort – Exposes the service on each Node’s IP.
+LoadBalancer – Integrates with cloud provider load balancers.
+Example of a ClusterIP Service:
+
+yaml
+Copy
+Edit
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+5. How do you check the logs of a Kubernetes Pod?
+Answer:
+To check logs of a running Pod:
+
+bash
+Copy
+Edit
+kubectl logs my-pod
+For a Pod with multiple containers:
+
+bash
+Copy
+Edit
+kubectl logs my-pod -c my-container
+6. What is the difference between kubectl apply and kubectl create?
+Command	Purpose
+kubectl create	Creates a new resource. Fails if it already exists.
+kubectl apply	Creates or updates resources. Useful for managing configurations.
+Example:
+
+bash
+Copy
+Edit
+kubectl apply -f deployment.yaml  # Apply changes
+kubectl create -f deployment.yaml # Create a new deployment
+7. What is a Persistent Volume (PV) and Persistent Volume Claim (PVC)?
+Answer:
+
+Persistent Volume (PV): A storage resource in the cluster.
+Persistent Volume Claim (PVC): A request for storage by a Pod.
+Example YAML:
+
+yaml
+Copy
+Edit
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+8. What is Horizontal Pod Autoscaler (HPA)?
+Answer:
+HPA automatically scales the number of Pods based on CPU/memory usage.
+
+Example of enabling HPA:
+
+bash
+Copy
+Edit
+kubectl autoscale deployment my-deployment --cpu-percent=50 --min=1 --max=10
+9. How do you troubleshoot a Kubernetes Pod in CrashLoopBackOff state?
+Answer:
+
+Check logs:
+bash
+Copy
+Edit
+kubectl logs my-pod
+Describe the Pod:
+bash
+Copy
+Edit
+kubectl describe pod my-pod
+Check events:
+bash
+Copy
+Edit
+kubectl get events --sort-by=.metadata.creationTimestamp
+10. What is Kubernetes RBAC (Role-Based Access Control)?
+Answer:
+RBAC controls permissions for users and applications in Kubernetes.
+
+Example of defining a Role:
+
+yaml
+Copy
+Edit
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: pod-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"]
+To bind this role to a user:
+
+yaml
+Copy
+Edit
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+  - kind: User
+    name: jane
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io

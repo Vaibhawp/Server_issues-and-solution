@@ -1,0 +1,71 @@
+1. Remove Duplicate Rows
+DELETE FROM Products
+WHERE ProductID NOT IN (
+    SELECT MIN(ProductID)
+    FROM Products
+    GROUP BY ProductName
+);
+
+2. Find Top Earners
+SELECT EmployeeID, Salary
+FROM Salaries
+ORDER BY Salary DESC
+LIMIT 3;
+
+3. Aggregate Data
+SELECT ProductCategory, SUM(Revenue) AS TotalRevenue
+FROM Sales
+GROUP BY ProductCategory;
+
+4. Find Missing Data
+SELECT *
+FROM Users
+WHERE Email IS NULL;
+
+5. Self-Join
+SELECT e1.EmployeeID AS Employee1, e2.EmployeeID AS Employee2, e1.ManagerID
+FROM Employees e1
+JOIN Employees e2 ON e1.ManagerID = e2.ManagerID
+WHERE e1.EmployeeID != e2.EmployeeID;
+
+6. Update Specific Rows
+UPDATE Employees
+SET Salary = Salary * 1.10
+WHERE Department = 'Sales';
+
+7. Delete Rows Based on a Condition
+DELETE FROM Orders
+WHERE OrderDate < NOW() - INTERVAL 2 YEAR;
+
+8. Find Second Highest Value
+SELECT MAX(Salary) AS SecondHighestSalary
+FROM Employees
+WHERE Salary < (SELECT MAX(Salary) FROM Employees);
+
+9. Find Gaps in Data
+SELECT ID + 1 AS MissingID
+FROM Orders o1
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Orders o2
+    WHERE o2.ID = o1.ID + 1
+);
+
+10. Combine Data from Multiple Tables
+SELECT c.CustomerName
+FROM Customers c
+JOIN Orders o ON c.CustomerID = o.CustomerID;
+Bonus: Advanced Queries
+a) Departments with Total Salaries > $1,000,000
+SELECT d.DepartmentID, d.DepartmentName, SUM(e.Salary) AS TotalSalary
+FROM Departments d
+JOIN Employees e ON d.DepartmentID = e.DepartmentID
+GROUP BY d.DepartmentID, d.DepartmentName
+HAVING SUM(e.Salary) > 1000000;
+b) Pivot Sales Data by Year
+SELECT Year,
+       SUM(CASE WHEN ProductCategory = 'Category1' THEN Revenue ELSE 0 END) AS Category1,
+       SUM(CASE WHEN ProductCategory = 'Category2' THEN Revenue ELSE 0 END) AS Category2,
+       SUM(CASE WHEN ProductCategory = 'Category3' THEN Revenue ELSE 0 END) AS Category3
+FROM Sales
+GROUP BY Year;

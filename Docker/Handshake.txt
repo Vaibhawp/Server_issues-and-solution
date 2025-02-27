@@ -1,0 +1,20 @@
+The TCP handshake is the process of establishing a reliable connection between a client and a server using the Transmission Control Protocol (TCP). It is called the three-way handshake and involves three key steps:
+
+Steps in TCP Three-Way Handshake:
+SYN (Synchronize) → The client sends a SYN packet to the server to initiate a connection.
+SYN-ACK (Synchronize-Acknowledge) → The server responds with a SYN-ACK packet, acknowledging the client's request and signaling readiness.
+ACK (Acknowledge) → The client sends an ACK packet to confirm the connection is established.
+Once these steps are completed, data transmission begins.
+
+Diagram of the TCP Handshake Process:
+pgsql
+Copy
+Edit
+Client                          Server
+   | ---- SYN ---->   (Request to Connect)
+   | <--- SYN-ACK --- (Acknowledgment from Server)
+   | ---- ACK ---->   (Final Confirmation)
+Key Points:
+TCP handshake ensures a reliable and ordered connection before data transfer.
+If any step fails, TCP retries or terminates the connection.
+Used in applications like HTTP, SSH, FTP, and SMTP for secure communication.

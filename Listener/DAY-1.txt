@@ -1,0 +1,45 @@
+The DevOps  is a continuous process that emphasizes collaboration, automation, and integration between development (Dev) and operations (Ops) teams to deliver high-quality software quickly and efficiently.
+ key phases of the DevOps lifecycle:
+1. Plan
+Involves defining requirements, project goals, and workflows.
+Tools: Jira, Trello, Confluence, GitLab (issues/planning boards).
+2. Develop
+Writing, reviewing, and managing code.
+Continuous integration (CI) ensures code changes are merged into the main branch and tested frequently.
+Tools: Git, GitHub, GitLab, Bitbucket, VS Code.
+3. Build
+Compiling source code into executable artifacts.
+Automated builds and dependency management ensure consistent results.
+Tools: Jenkins, Maven, Gradle, Azure DevOps.
+4. Test
+Automated and manual testing to ensure functionality, performance, and security.
+Continuous testing catches bugs early in the development cycle.
+Tools: Selenium, JUnit, TestNG, Postman.
+5. Release
+Preparing the software for deployment by packaging it into containers or executables.
+Tools for managing version control, tagging releases, and change approval processes are used.
+Tools: GitLab CI/CD, AWS CodePipeline, Azure DevOps, Jenkins.
+6. Deploy
+Automatically or manually deploying the application to production or staging environments.
+Infrastructure-as-Code (IaC) tools and container orchestration streamline deployments.
+Tools: Kubernetes, Docker, AWS CodeDeploy, Ansible.
+7. Operate
+Monitoring and managing application performance, infrastructure, and uptime.
+Logging, alerting, and proactive issue detection ensure reliability.
+Tools: Prometheus, Grafana, Splunk, Nagios.
+8. Monitor
+Continuous feedback loops using monitoring, analytics, and user feedback.
+Observability provides actionable insights for improvement.
+Tools: New Relic, Datadog, ELK Stack (Elasticsearch, Logstash, Kibana).
+==================================
+A cron job is a scheduled task in Unix-based systems that runs automatically at specified intervals using the cron daemon. It is defined in a file called the crontab (cron table), where users specify the command or script to execute, along with the schedule.
+
+Purpose:
+Cron jobs are used for automating repetitive tasks such as:
+
+Backing up files and databases.
+Running maintenance scripts.
+Monitoring system health.
+Sending periodic reports or emails.
+Cleaning up temporary files.
+==========================================

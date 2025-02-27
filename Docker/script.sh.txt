@@ -1,0 +1,238 @@
+#!/bin/bash
+
+# Define the file name
+FILE="output.txt"
+
+# Display a message
+echo "Starting the script to read, write, and execute operations."
+
+# Create or overwrite the file and check for success
+echo "This is a test file created by script.sh" > "$FILE"
+if [ $? -ne 0 ]; then
+    echo "Failed to write to $FILE"
+    exit 1
+fi
+echo "File '$FILE' has been created and written successfully."
+
+# Read the file and check for success
+echo "Reading the contents of '$FILE':"
+cat "$FILE"
+if [ $? -ne 0 ]; then
+    echo "Failed to read from $FILE"
+    exit 1
+fi
+
+# Make the file executable and check for success
+chmod +x "$FILE"
+if [ $? -ne 0 ]; then
+    echo "Failed to make $FILE executable"
+    exit 1
+fi
+echo "Permissions changed: '$FILE' is now executable."
+
+# List the file permissions
+ls -l "$FILE"
+========================================================================
+In shell scripts, we write #!/bin/bash (called a shebang) at the beginning to specify the interpreter that should be used to execute the script.
+
+Why do we write #!/bin/bash in scripts?
+Specifies the Shell Interpreter:
+
+The shebang (#!) tells the operating system to use /bin/bash as the interpreter for the script.
+Example:
+bash
+Copy
+Edit
+#!/bin/bash
+echo "Hello, World!"
+Ensures Compatibility:
+
+Some systems have multiple shells (sh, bash, zsh, dash).
+Writing #!/bin/bash ensures that the script runs with Bash, which has more features than sh.
+Avoids Manual Execution:
+
+Instead of running bash script.sh, you can execute it directly:
+bash
+Copy
+Edit
+chmod +x script.sh  # Make it executable
+./script.sh         # Run it
+Prevents Errors:
+
+If the system’s default shell is not Bash (e.g., sh or dash), using #!/bin/bash ensures compatibility with Bash-specific commands like [[ ]], declare, and let.
+Alternative Shebangs
+#!/bin/sh → Uses POSIX-compliant shell (more portable, fewer features).
+#!/usr/bin/env bash → Finds Bash dynamically in different environments.
+Example Difference (sh vs. bash)
+bash
+Copy
+Edit
+#!/bin/sh
+echo "Bash supports [[ ]] conditionals"
+if [[ "hello" == "hello" ]]; then echo "Bash only"; fi
+Running this with sh gives an error because [[ ]] is Bash-specific.
+Conclusion
+Writing #!/bin/bash ensures that your script always runs with Bash, making it more predictable and avoiding compatibility issues. 🚀
+
+
+1. What is a Shell?
+A shell is a command-line interface that allows users to interact with the operating system. It interprets commands and executes programs.
+
+Examples of shells:
+
+Bash (/bin/bash) → Default in most Linux systems
+Zsh (/bin/zsh) → Advanced features over Bash
+Sh (/bin/sh) → POSIX-compliant, minimal shell
+Fish (/usr/bin/fish) → User-friendly shell
+Example:
+
+bash
+Copy
+Edit
+echo "Hello, World!"
+The shell interprets echo and prints Hello, World!.
+
+2. What is a Subshell?
+A subshell is a child process created by a shell. It inherits the parent shell's environment but runs commands independently.
+
+How is a Subshell Created?
+Using parentheses ()
+
+Commands inside parentheses run in a subshell.
+Variables in the subshell do not affect the parent shell.
+Example:
+
+bash
+Copy
+Edit
+VAR="Hello"
+(VAR="Subshell"; echo "$VAR")  # Runs in a subshell
+echo "$VAR"  # Still prints "Hello" because the subshell didn't affect the parent shell
+Using bash command
+
+Running bash starts a new subshell.
+Commands executed in this new shell do not affect the parent shell.
+Example:
+
+bash
+Copy
+Edit
+echo "Main shell: $$"  # Prints the main shell's PID
+bash
+echo "Subshell: $$"    # New PID (subshell)
+exit                   # Exit back to the main shell
+Using Command Substitution $(command) or Backticks `command`
+
+Runs a command in a subshell and captures its output.
+Example:
+
+bash
+Copy
+Edit
+CURRENT_DIR=$(pwd)  # 'pwd' runs in a subshell
+echo "You are in $CURRENT_DIR"
+Key Differences Between Shell and Subshell
+Feature	Shell (Parent)	Subshell (Child)
+Process ID (PID)	Same PID as user session	New PID
+Variable Scope	Changes persist	Changes do not affect parent
+Environment Inheritance	N/A	Inherits from the parent shell
+Example Creation	Running bash or a script	Using (), $(command), bash
+Practical Example: Shell vs. Subshell
+bash
+Copy
+Edit
+#!/bin/bash
+echo "Parent Shell PID: $$"
+
+(
+    echo "Subshell PID: $$"
+    VAR="Changed in subshell"
+)
+
+echo "Parent Shell VAR: $VAR"  # VAR is unchanged
+Output:
+
+yaml
+Copy
+Edit
+Parent Shell PID: 12345
+Subshell PID: 67890
+Parent Shell VAR:   # Empty, as subshell changes do not affect parent
+Conclusion
+A shell is the main command-line interface.
+A subshell is a separate process created by the shell.
+Changes made inside a subshell do not affect the parent shell.
+Useful for running isolated commands without affecting the main environment. 🚀
+
+
+1. What is a Kernel?
+The kernel is the core component of an operating system (OS) that manages hardware and software interactions. It acts as a bridge between user applications and the system’s hardware.
+
+2. Functions of a Kernel
+The kernel is responsible for several key functions:
+
+Function	Description
+Process Management	Creates, schedules, and terminates processes.
+Memory Management	Allocates and deallocates memory for processes.
+File System Management	Manages files and directories on storage.
+Device Management	Communicates with hardware using drivers.
+Inter-Process Communication (IPC)	Allows processes to communicate and share data.
+Security & Access Control	Enforces user permissions and security policies.
+3. Types of Kernels
+Kernel Type	Description
+Monolithic Kernel	All OS services (memory, process, file management) run in kernel mode. Example: Linux, Unix.
+Microkernel	Minimal kernel; most services run in user space for better security. Example: Minix, QNX.
+Hybrid Kernel	A mix of monolithic and microkernel. Example: Windows, macOS.
+Exokernel	Bare-minimum kernel that allows user programs to access hardware directly. Example: ExOS.
+4. User Space vs. Kernel Space
+User Space → Where applications run (e.g., browsers, text editors).
+Kernel Space → Where the kernel operates (handling drivers, memory, and processes).
+🛑 Why Separation?
+
+Prevents applications from directly accessing system resources.
+Increases security and stability by restricting direct hardware access.
+5. How the Kernel Works? (System Call Example)
+When a program needs to access hardware (e.g., read a file), it makes a system call to the kernel.
+
+📌 Example: Reading a file in Linux
+1️⃣ A user program (cat file.txt) requests to read a file.
+2️⃣ The program calls the read() system call.
+3️⃣ The kernel checks permissions and accesses the file from the disk.
+4️⃣ Data is sent back to the user program.
+
+💡 Common System Calls:
+
+fork() → Creates a new process
+exec() → Runs a new program
+open() / read() / write() → File operations
+kill() → Terminates a process
+6. Difference Between Kernel and Shell
+Feature	Kernel	Shell
+Role	Core of the OS, manages hardware	Interface between user and kernel
+Function	Process scheduling, memory, file handling	Executes user commands
+Runs in	Kernel space	User space
+Example	Linux Kernel, Windows NT Kernel	Bash, Zsh, PowerShell
+7. Kernel in Linux (Practical Example)
+🔹 Check Kernel Version:
+
+bash
+Copy
+Edit
+uname -r
+🔹 View Kernel Messages:
+
+bash
+Copy
+Edit
+dmesg | less
+🔹 Check System Calls:
+
+bash
+Copy
+Edit
+strace ls
+Conclusion
+The kernel is the OS's core, managing system resources.
+It operates in kernel space, separate from user programs.
+It provides system calls for apps to interact with hardware.
+Different types include monolithic, microkernel, hybrid, and exokernel.
